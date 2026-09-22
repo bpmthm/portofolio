@@ -76,7 +76,7 @@ onUnmounted(() => {
         </div>
         <div class="flex flex-col">
           <span class="font-heading font-bold tracking-wider text-base text-light group-hover:text-accent transition-colors">
-            LUTFI CANDAKA
+            LUTFI CANDAKA KUSUMAH
           </span>
           <span class="font-mono text-[10px] text-muted tracking-tight -mt-1">
             [SYS.ONLINE // F41]

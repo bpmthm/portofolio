@@ -47,7 +47,7 @@ import { computed } from 'vue'
         </h2>
       </div>
       <div class="font-mono text-xs text-muted mt-2 md:mt-0">
-        [ID: LUTFI_CANDAKA_K] • [ROLE: FULLSTACK_ARCHITECT]
+        [ID: LUTFI_CANDAKA_KUSUMAH] • [ROLE: FULLSTACK_ARCHITECT]
       </div>
     </div>
 
@@ -87,10 +87,10 @@ import { computed } from 'vue'
                 PI // OPERATOR
               </span>
               <h3 class="text-2xl font-heading font-bold text-light uppercase">
-                Lutfi Candaka K.
+                Lutfi Candaka KUSUMAH
               </h3>
               <p class="text-xs font-mono text-gray-300">
-                Lulusan D3 Teknik Informatika • Network & Systems Enthusiast • Coffee Alchemist
+                Lulusan D3 Teknik Informatika • Network & Systems Enthusiast • Art & Local Cultures Aficionado
               </p>
             </div>
           </div>
@@ -161,14 +161,14 @@ import { computed } from 'vue'
             <!-- Tab 1: Bio -->
             <div v-if="activeTab === 'bio'" class="space-y-4">
               <p class="text-gray-300">
-                <span class="text-accent font-bold">➜</span> Halo! Gue <span class="text-white font-semibold">Lutfi Candaka K.</span>, akrab dipanggil <span class="text-accent font-semibold">Pi</span>. Lulusan D3 Teknik Informatika yang sehari-hari fokus ngoprek arsitektur backend, distributed services, server Linux, dan manajemen jaringan.
+                <span class="text-accent font-bold">➜</span> Halo! Gue <span class="text-white font-semibold">Lutfi Candaka KUSUMAH</span>, akrab dipanggil <span class="text-accent font-semibold">Lutfi/Pi</span>. Lulusan D3 Teknik Informatika yang sehari-hari ngoprek backend, kadang server, dan jaringan.
               </p>
               <p class="text-gray-400">
-                <span class="text-accent font-bold">➜</span> Comfort zone gue ada di terminal <span class="text-white font-medium">Fedora Linux</span>, mendesain pipeline data berkinerja tinggi, menghubungkan database lintas platform (SAP SQL Server + MySQL), dan meracik coffee mocktails saat off-duty.
+                <span class="text-accent font-bold">➜</span> Comfort zone gue ada di terminal <span class="text-white font-medium">Fedora Linux</span>, ngeracik arsitektur sistem, dokumentasi proyek, main musik, motret sudut kota Bandung, dan ngeracik kopi di rumah.
               </p>
               <div class="pt-2 border-t border-white/5 flex items-center space-x-3 text-xs text-muted">
                 <span class="text-emerald-400">✓ Systems Mindset</span>
-                <span class="text-emerald-400">✓ Security & Observability</span>
+                <span class="text-emerald-400">✓ Observability & Docs</span>
                 <span class="text-emerald-400">✓ Clean Modular Code</span>
               </div>
             </div>

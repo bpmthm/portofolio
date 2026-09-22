@@ -241,7 +241,7 @@ Cuplikan kode:
     <div class="w-full md:w-1/2">
       <h2 class="text-4xl font-heading font-bold uppercase mb-6">The Operator</h2>
       <p class="text-gray-300 mb-6 leading-relaxed">
-        Gue Lutfi, biasa dipanggil Pi. Lulusan D3 Teknik Informatika yang sehari-hari ngoprek backend, server, dan jaringan. Comfort zone gue ada di terminal Fedora, ngeracik arsitektur sistem, dan brewing coffee mocktails.
+        Gue Lutfi, biasa dipanggil Pi. Lulusan D3 Teknik Informatika yang sehari-hari ngoprek backend, kadang server, dan jaringan. Comfort zone gue ada di terminal Fedora, ngeracik arsitektur sistem, dokumentasi proyek, motret sudut kota Bandung, dan ngeracik kopi di rumah.
       </p>
       <div class="flex flex-wrap gap-3 mt-8">
         <span class="px-3 py-1 border border-gray-700 text-sm">Vue 3</span>
@@ -282,8 +282,8 @@ Cuplikan kode:
         <!-- MBG-->
         <div class="border border-gray-800 bg-dark p-6 group hover:border-accent transition-colors cursor-pointer" @click="$router.push('/project/mbg-iot')">
           <h3 class="text-2xl font-heading font-bold mb-2">MBG Tracker</h3>
-          <p class="text-sm text-accent mb-4">IoT Food Waste System</p>
-          <p class="text-gray-400 text-sm mb-6">Perancangan sistem pendeteksi sisa makanan menggunakan Weighted Moving Average dan rekomendasi menu Generative AI.</p>
+          <p class="text-sm text-accent mb-4">IoT Food Waste Analytics & Menu AI</p>
+          <p class="text-gray-400 text-sm mb-6">Analisis tren limbah makanan menggunakan Weighted Moving Average (WMA) untuk prediksi porsi dan Generative AI untuk optimasi menu berbasis gizi & budget.</p>
           <span class="text-xs uppercase tracking-widest group-hover:text-accent transition-colors">Read Case Study &rarr;</span>
         </div>
       </div>
@@ -297,7 +297,7 @@ Cuplikan kode:
   <section id="impact" class="py-24 px-6 max-w-7xl mx-auto text-center">
     <h2 class="text-4xl font-heading font-bold uppercase mb-6">Ground Zero</h2>
     <p class="text-gray-300 max-w-2xl mx-auto mb-12">
-      Co-founder Tjilebak.id. Membangun inisiatif kolektif komunitas lokal untuk konservasi lingkungan dan perlindungan mata air di Gedong Cai Tjibadak 1921.
+      Co-founder Tjilebak.id. Menginisiasi program penanaman pohon, restorasi sempadan mata air di Gedong Cai Tjibadak 1921, serta membangun kesadaran masyarakat melalui kampanye digital dan lokakarya ekologi pemuda.
     </p>
     <!-- Placeholder for Tjilebak photos -->
     <div class="w-full h-64 bg-gray-800 rounded-sm"></div>
@@ -310,22 +310,26 @@ Cuplikan kode:
   <section id="gallery" class="py-24 px-6 max-w-7xl mx-auto">
     <h2 class="text-4xl font-heading font-bold uppercase mb-12 text-center">The Lens</h2>
     <div class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-      <!-- Placeholder for Masonry Gallery (Street & Analog) -->
+      <!-- Masonry Gallery with Storytelling & Gear Tags -->
       <div class="w-full h-64 bg-gray-800 break-inside-avoid relative group">
-         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
             <span class="text-xs uppercase tracking-widest text-white">Shot on Fuji X-T50</span>
+            <p class="text-xs text-gray-300 mt-1">Lorong Braga di tengah rintik hujan malam hari, menangkap pantulan neon kota.</p>
          </div>
       </div>
       <div class="w-full h-96 bg-gray-900 break-inside-avoid relative group">
-         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
             <span class="text-xs uppercase tracking-widest text-white">Shot on Nikon Coolpix</span>
+            <p class="text-xs text-gray-300 mt-1">Siluet brutalist beton stasiun kereta saat jam sibuk komuter.</p>
          </div>
       </div>
       <div class="w-full h-72 bg-gray-800 break-inside-avoid relative group">
-         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
             <span class="text-xs uppercase tracking-widest text-white">Analog Vibe</span>
+            <p class="text-xs text-gray-300 mt-1">Dokumentasi kanopi pohon pelindung mata air Gedong Cai Tjibadak 1921.</p>
          </div>
       </div>
     </div>
   </section>
 </template>
+

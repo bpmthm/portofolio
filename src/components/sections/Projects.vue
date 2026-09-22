@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const selectedProject = ref(null)
+const isModalLoading = ref(false)
 
 const projects = [
   {
@@ -12,7 +13,7 @@ const projects = [
     subtitle: 'Enterprise Knowledge Retrieval & Hybrid RAG',
     badge: 'AI / RAG ARCHITECTURE',
     metric: 'Latency: <120ms • Recall: 96.4%',
-    description: 'Hybrid RAG architecture combining Parallel Search (BM25 keyword search + Cosine Dense Vector Similarity) via ChromaDB with Human-in-the-Loop evaluation loop.',
+    description: 'Hybrid RAG architecture combining Parallel Search (BM25 keyword search + Cosine Dense Vector Similarity) via ChromaDB with Cross-Encoder re-ranking and Human-in-the-Loop evaluation.',
     highlights: [
       'Parallel Search (BM25 + Dense Embeddings)',
       'Cross-Encoder Re-Ranking Pipeline',
@@ -41,24 +42,28 @@ const projects = [
   {
     id: 'mbg-iot',
     title: 'MBG Tracker',
-    subtitle: 'IoT Food Waste & Menu Optimization',
-    badge: 'IOT SENSORS + GENERATIVE AI',
+    subtitle: 'Food Waste Analytics & Generative AI Menu',
+    badge: 'MACHINE LEARNING & GENERATIVE AI',
     metric: 'Food Waste Reduced by 38%',
-    description: 'Edge IoT telemetry system analyzing daily food waste using Weighted Moving Average (WMA) predictive models and Generative AI dynamic meal recommendation.',
+    description: 'Sistem monitoring limbah makanan institusional dengan sensor timbangan IoT (ESP32) yang menganalisis tren data historis via Weighted Moving Average (WMA) untuk prediksi porsi dan menyusun rekomendasi menu bergizi baru dengan Generative AI.',
     highlights: [
-      'IoT Sensor Telemetry (ESP32 + MQTT Broker)',
-      'Weighted Moving Average (WMA) Waste Prediction',
-      'Generative AI Nutritious Menu Adaptation',
-      'Real-time Dashboard & Anomaly Alerts'
+      'IoT Sensor Telemetry (ESP32 Load Cells + MQTT Broker)',
+      'Weighted Moving Average (WMA) untuk Prediksi Limbah & Kalibrasi Porsi',
+      'Generative AI Menu Builder (Memfilter Bahan dengan Tren Waste Tinggi)',
+      'Dashboard Real-time & Optimasi Efisiensi Anggaran Bahan Baku'
     ],
-    stack: ['Python', 'MQTT Broker', 'FastAPI', 'Gemini AI API', 'PostgreSQL', 'Vue 3'],
+    stack: ['ESP32 / C++', 'MQTT / Mosquitto', 'Python / FastAPI', 'Gemini AI API', 'PostgreSQL', 'Vue 3'],
     accentColor: '#D9381E'
   }
 ]
 
 const openPreview = (project, event) => {
   event.stopPropagation()
+  isModalLoading.value = true
   selectedProject.value = project
+  setTimeout(() => {
+    isModalLoading.value = false
+  }, 200)
 }
 
 const navigateToCaseStudy = (id) => {
@@ -156,7 +161,7 @@ const navigateToCaseStudy = (id) => {
 
     </div>
 
-    <!-- Quick Preview Modal Dialog -->
+    <!-- Quick Preview Modal Dialog with Smooth Loading Animation -->
     <div
       v-if="selectedProject"
       class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
@@ -166,56 +171,63 @@ const navigateToCaseStudy = (id) => {
         class="glass-panel w-full max-w-2xl p-8 rounded-lg border border-accent relative shadow-2xl space-y-6"
         @click.stop
       >
-        <div class="flex justify-between items-start pb-4 border-b border-white/10">
-          <div>
-            <span class="text-xs font-mono text-accent font-bold uppercase tracking-wider">// SYSTEM SPECS</span>
-            <h3 class="text-3xl font-heading font-bold uppercase text-white mt-1">{{ selectedProject.title }}</h3>
-            <p class="text-xs font-mono text-gray-400">{{ selectedProject.subtitle }}</p>
-          </div>
-          <button
-            @click="selectedProject = null"
-            class="text-gray-400 hover:text-white font-mono text-sm px-2 py-1 bg-white/5 rounded"
-          >
-            ✕ Close
-          </button>
+        <div v-if="isModalLoading" class="py-16 text-center space-y-3">
+          <div class="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p class="font-mono text-xs text-accent uppercase tracking-wider">// RETRIEVING ARSENAL SPECS...</p>
         </div>
 
-        <div class="space-y-3 font-mono text-xs">
-          <h4 class="text-white font-bold uppercase text-sm tracking-wider">Key Architecture Highlights:</h4>
-          <ul class="space-y-2 text-gray-300">
-            <li v-for="(hl, idx) in selectedProject.highlights" :key="idx" class="flex items-start space-x-2">
-              <span class="text-accent font-bold">▶</span>
-              <span>{{ hl }}</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="space-y-2">
-          <h4 class="font-mono text-xs uppercase text-gray-400 font-bold">Tech Stack:</h4>
-          <div class="flex flex-wrap gap-2">
-            <span
-              v-for="st in selectedProject.stack"
-              :key="st"
-              class="px-2.5 py-1 bg-white/10 rounded font-mono text-xs text-white"
+        <div v-else class="space-y-6">
+          <div class="flex justify-between items-start pb-4 border-b border-white/10">
+            <div>
+              <span class="text-xs font-mono text-accent font-bold uppercase tracking-wider">// SYSTEM SPECS</span>
+              <h3 class="text-3xl font-heading font-bold uppercase text-white mt-1">{{ selectedProject.title }}</h3>
+              <p class="text-xs font-mono text-gray-400">{{ selectedProject.subtitle }}</p>
+            </div>
+            <button
+              @click="selectedProject = null"
+              class="text-gray-400 hover:text-white font-mono text-sm px-2 py-1 bg-white/5 rounded"
             >
-              {{ st }}
-            </span>
+              ✕ Close
+            </button>
           </div>
-        </div>
 
-        <div class="pt-4 border-t border-white/10 flex justify-end space-x-3">
-          <button
-            @click="selectedProject = null"
-            class="px-4 py-2 bg-white/5 hover:bg-white/10 font-mono text-xs uppercase text-gray-300"
-          >
-            Close Preview
-          </button>
-          <button
-            @click="navigateToCaseStudy(selectedProject.id)"
-            class="px-5 py-2 bg-accent hover:bg-accent-hover text-white font-mono text-xs font-bold uppercase tracking-wider shadow-accent-glow"
-          >
-            Open Full Case Study &rarr;
-          </button>
+          <div class="space-y-3 font-mono text-xs">
+            <h4 class="text-white font-bold uppercase text-sm tracking-wider">Key Architecture Highlights:</h4>
+            <ul class="space-y-2 text-gray-300">
+              <li v-for="(hl, idx) in selectedProject.highlights" :key="idx" class="flex items-start space-x-2">
+                <span class="text-accent font-bold">▶</span>
+                <span>{{ hl }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="font-mono text-xs uppercase text-gray-400 font-bold">Tech Stack:</h4>
+            <div class="flex flex-wrap gap-2">
+              <span
+                v-for="st in selectedProject.stack"
+                :key="st"
+                class="px-2.5 py-1 bg-white/10 rounded font-mono text-xs text-white"
+              >
+                {{ st }}
+              </span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/10 flex justify-end space-x-3">
+            <button
+              @click="selectedProject = null"
+              class="px-4 py-2 bg-white/5 hover:bg-white/10 font-mono text-xs uppercase text-gray-300"
+            >
+              Close Preview
+            </button>
+            <button
+              @click="navigateToCaseStudy(selectedProject.id)"
+              class="px-5 py-2 bg-accent hover:bg-accent-hover text-white font-mono text-xs font-bold uppercase tracking-wider shadow-accent-glow"
+            >
+              Open Full Case Study &rarr;
+            </button>
+          </div>
         </div>
       </div>
     </div>

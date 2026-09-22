@@ -19,7 +19,8 @@ const photos = [
     cameraName: 'Fujifilm X-T50',
     lens: 'XF 23mm F1.4 R LM WR',
     exif: 'f/1.4 • 1/125s • ISO 1600 • 23mm',
-    vibe: 'Film Simulation: Classic Neg',
+    vibe: 'Film Sim: Classic Neg',
+    story: 'Menyusuri gang sempit sekitaran Braga di tengah rintik hujan malam hari, menangkap pantulan lampu neon warung kopi di atas genangan aspal basah.',
     gradient: 'from-amber-950/40 via-red-950/30 to-zinc-950',
     heightClass: 'h-80',
     aspect: 'Urban Street Night'
@@ -32,6 +33,7 @@ const photos = [
     lens: 'Built-in 28-112mm',
     exif: 'f/2.8 • 1/60s • ISO 800 • 28mm',
     vibe: 'Lo-Fi Digital Grain',
+    story: 'Kaca jendela kedai kopi berembun saat badai sore di Dago. Butiran air memecah cahaya lampu jalanan menjadi spektrum warna yang hangat dan sendu.',
     gradient: 'from-blue-950/40 via-cyan-950/30 to-zinc-950',
     heightClass: 'h-96',
     aspect: 'Candid Low-Light'
@@ -44,6 +46,7 @@ const photos = [
     lens: 'Zuiko 50mm f/1.8',
     exif: 'f/4.0 • 1/250s • ISO 400 • Kodak UltraMax',
     vibe: 'Chemical Film Grain',
+    story: 'Dokumentasi kanopi pohon beringin tua yang memayungi mata air warisan 1921. Cahaya matahari pagi menerobos dedaunan lembap yang hening.',
     gradient: 'from-emerald-950/40 via-teal-950/30 to-zinc-950',
     heightClass: 'h-72',
     aspect: 'Environmental Documentary'
@@ -55,7 +58,8 @@ const photos = [
     cameraName: 'Fujifilm X-T50',
     lens: 'XF 35mm F2 R WR',
     exif: 'f/2.0 • 1/500s • ISO 320 • 35mm',
-    vibe: 'Film Simulation: Acros (B&W)',
+    vibe: 'Film Sim: Acros B&W',
+    story: 'Dinamika peron Stasiun Bandung saat kereta senja merapat. Kontras tinggi antara siluet penumpang bergegas dan bayangan panjang rel kereta.',
     gradient: 'from-zinc-800/40 via-zinc-900/30 to-black',
     heightClass: 'h-96',
     aspect: 'Monochrome Street'
@@ -68,6 +72,7 @@ const photos = [
     lens: '40mm f/1.7',
     exif: 'f/2.8 • 1/60s • ISO 200 • Fujicolor C200',
     vibe: 'Warm Vintage Cast',
+    story: 'Momen rehat seduh kopi manual di meja kerja rumahan ditemani alunan gitar Midwest Emo. Warna analog memberikan rasa tenang dan nostalgia.',
     gradient: 'from-orange-950/40 via-amber-950/30 to-zinc-950',
     heightClass: 'h-72',
     aspect: 'Daily Narrative'
@@ -80,6 +85,7 @@ const photos = [
     lens: 'Built-in Zoom',
     exif: 'f/3.5 • 1/1000s • ISO 100 • 35mm',
     vibe: 'Hard Contrast Punch',
+    story: 'Geometri fasad gedung beton perkotaan yang tegas membelah langit biru Bandung, merefleksikan estetika raw industrial yang presisi.',
     gradient: 'from-stone-900/40 via-zinc-950/30 to-black',
     heightClass: 'h-80',
     aspect: 'Architectural Framing'
@@ -139,35 +145,38 @@ const filteredPhotos = computed(() => {
         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(white_1px,transparent_1px)] [background-size:12px_12px]"></div>
 
         <!-- Frame HUD Corner Marks -->
-        <div class="absolute top-3 left-3 z-20 font-mono text-[9px] text-white/60 bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm">
+        <div class="absolute top-3 left-3 z-20 font-mono text-[9px] text-white/75 bg-black/70 px-2 py-0.5 rounded backdrop-blur-sm border border-white/10">
           {{ photo.cameraName }}
         </div>
-        <div class="absolute top-3 right-3 z-20 font-mono text-[9px] text-accent bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm">
+        <div class="absolute top-3 right-3 z-20 font-mono text-[9px] text-accent bg-black/70 px-2 py-0.5 rounded backdrop-blur-sm border border-white/10 font-bold">
           {{ photo.aspect }}
         </div>
 
-        <!-- Hover Overlay with Detailed EXIF -->
-        <div class="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 p-6 flex flex-col justify-end space-y-2 backdrop-blur-sm">
-          <span class="text-xs font-mono text-accent font-bold uppercase tracking-widest">// EXIF TELEMETRY</span>
+        <!-- Hover Overlay with Detailed Storytelling & EXIF -->
+        <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 p-6 flex flex-col justify-end space-y-2.5 backdrop-blur-sm">
+          <span class="text-[11px] font-mono text-accent font-bold uppercase tracking-widest">// NARRATIVE & TELEMETRY</span>
           <h4 class="text-xl font-heading font-bold text-white uppercase">{{ photo.title }}</h4>
-          <p class="text-xs font-mono text-gray-300">{{ photo.lens }}</p>
+          <p class="text-xs text-gray-300 font-sans leading-relaxed">
+            {{ photo.story }}
+          </p>
           <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[11px] font-mono text-muted">
-            <span class="text-gray-200">{{ photo.exif }}</span>
-            <span class="text-accent font-bold">[Inspect ↗]</span>
+            <span class="text-gray-300">{{ photo.exif }}</span>
+            <span class="text-accent font-bold">[Inspect Full ↗]</span>
           </div>
         </div>
 
-        <!-- Ambient Bottom Gradient Tag (When not hovering) -->
-        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent z-10 group-hover:opacity-0 transition-opacity">
+        <!-- Ambient Bottom Tag (When not hovering) -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10 group-hover:opacity-0 transition-opacity">
           <h4 class="text-base font-heading font-bold text-white uppercase tracking-wider">{{ photo.title }}</h4>
-          <span class="text-[10px] font-mono text-gray-400">{{ photo.vibe }}</span>
+          <p class="text-xs text-gray-400 font-sans line-clamp-1 mt-0.5">{{ photo.story }}</p>
+          <span class="text-[10px] font-mono text-accent block mt-1">{{ photo.vibe }}</span>
         </div>
 
       </div>
 
     </div>
 
-    <!-- Interactive Lightbox Modal -->
+    <!-- Interactive Lightbox Modal with Storytelling -->
     <div
       v-if="activePhoto"
       class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl"
@@ -179,7 +188,7 @@ const filteredPhotos = computed(() => {
       >
         <div class="flex justify-between items-start pb-4 border-b border-white/10">
           <div>
-            <span class="text-xs font-mono text-accent font-bold uppercase tracking-wider">// PHOTO TELEMETRY</span>
+            <span class="text-xs font-mono text-accent font-bold uppercase tracking-wider">// VISUAL ARCHIVE & STORY</span>
             <h3 class="text-3xl font-heading font-bold uppercase text-white mt-1">{{ activePhoto.title }}</h3>
             <p class="text-xs font-mono text-gray-400">{{ activePhoto.cameraName }} — {{ activePhoto.lens }}</p>
           </div>
@@ -194,17 +203,17 @@ const filteredPhotos = computed(() => {
         <!-- Frame Display -->
         <div
           :class="[
-            'w-full h-80 md:h-96 rounded flex items-center justify-center relative overflow-hidden bg-gradient-to-b border border-white/10',
+            'w-full h-72 md:h-80 rounded flex items-center justify-center relative overflow-hidden bg-gradient-to-b border border-white/10',
             activePhoto.gradient
           ]"
         >
-          <div class="text-center p-8 space-y-3 relative z-10">
-            <span class="px-3 py-1 bg-accent/20 border border-accent text-accent font-mono text-xs uppercase font-bold rounded">
+          <div class="text-center p-8 space-y-3 relative z-10 max-w-2xl">
+            <span class="px-3 py-1 bg-accent/20 border border-accent text-accent font-mono text-xs uppercase font-bold rounded inline-block">
               {{ activePhoto.vibe }}
             </span>
             <p class="text-2xl font-heading font-bold text-white uppercase">{{ activePhoto.title }}</p>
-            <p class="text-xs font-mono text-gray-400 max-w-md mx-auto">
-              Visual narrative recorded across urban nightscapes and analog street documentation.
+            <p class="text-sm font-body text-gray-200 leading-relaxed italic">
+              "{{ activePhoto.story }}"
             </p>
           </div>
         </div>
@@ -224,8 +233,8 @@ const filteredPhotos = computed(() => {
             <span class="text-light font-bold">{{ activePhoto.exif.split('•')[3] }}</span>
           </div>
           <div class="p-3 bg-black/50 border border-white/10 rounded text-center">
-            <span class="text-gray-400 block text-[10px]">ARCHIVE STAMP</span>
-            <span class="text-emerald-400 font-bold">BANDUNG // 35MM</span>
+            <span class="text-gray-400 block text-[10px]">LOCATION ARCHIVE</span>
+            <span class="text-emerald-400 font-bold">BANDUNG // STREET</span>
           </div>
         </div>
 

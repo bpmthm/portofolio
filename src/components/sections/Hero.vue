@@ -42,7 +42,7 @@ const scrollToSection = (target) => {
 
       <!-- Main Headline Typography -->
       <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-bold uppercase tracking-tighter text-light mb-4 leading-none select-none">
-        LUTFI CANDAKA <span class="text-accent underline decoration-accent/40 decoration-4 underline-offset-8">K.</span>
+        LUTFI CANDAKA <span class="text-accent underline decoration-accent/40 decoration-4 underline-offset-8">KUSUMAH</span>
       </h1>
 
       <!-- Subtitle Tagline -->
@@ -63,7 +63,7 @@ const scrollToSection = (target) => {
         </div>
         <div class="space-y-1 text-gray-300">
           <p><span class="text-accent font-bold">➜</span> <span class="text-emerald-400 font-semibold">whoami</span></p>
-          <p class="text-gray-400 pl-4">Lutfi (Pi) • D3 Informatics • Backend & System Builder</p>
+          <p class="text-gray-400 pl-4">Lutfi • D3 Informatics • Backend & System Builder</p>
           <p><span class="text-accent font-bold">➜</span> <span class="text-emerald-400 font-semibold">current_focus</span></p>
           <p class="text-gray-400 pl-4">Hybrid RAG Search, Distributed Systems, IoT Architecture</p>
         </div>

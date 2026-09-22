@@ -32,6 +32,39 @@ onUnmounted(() => {
 
     <div class="max-w-7xl mx-auto px-6">
       
+      <!-- Strong Action-Oriented CTA Banner -->
+      <div class="glass-panel p-8 md:p-10 rounded-lg border border-accent/40 mb-16 relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-6 shadow-accent-glow">
+        <div class="space-y-2 text-center md:text-left">
+          <span class="text-accent font-mono text-xs uppercase font-bold tracking-widest">// COLLABORATION READY</span>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold uppercase text-white">
+            Tertarik berkolaborasi? Mari kita ngobrol!
+          </h2>
+          <p class="text-gray-300 text-sm font-body max-w-xl">
+            Punya project backend, pipeline AI/RAG, infrastruktur jaringan, atau ide kreatif yang menantang? Gue selalu terbuka untuk diskusi teknis dan kolaborasi.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="mailto:lutficandaka@gmail.com"
+            class="px-6 py-3.5 bg-accent hover:bg-accent-hover text-white font-mono text-xs uppercase tracking-wider font-bold transition-all shadow-lg hover:scale-105 flex items-center space-x-2"
+          >
+            <span>Hubungi Gue (Email)</span>
+            <span>✉</span>
+          </a>
+          <a
+            href="https://linkedin.com/in/lutficandaka"
+            target="_blank"
+            rel="noopener"
+            class="px-5 py-3.5 bg-white/[0.05] hover:bg-white/10 border border-white/15 text-white font-mono text-xs uppercase tracking-wider transition-all flex items-center space-x-2"
+          >
+            <span>LinkedIn Connect</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer Columns -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-white/10">
         
         <!-- Col 1: Bio & Manifesto -->
@@ -43,7 +76,7 @@ onUnmounted(() => {
             </h3>
           </div>
           <p class="text-sm text-gray-400 font-body leading-relaxed max-w-sm">
-            Architecting reliable backend systems, containerized cloud infrastructure, and human-centric digital experiences. Always brewing ideas and coffee mocktails.
+            Architecting reliable backend systems, containerized cloud infrastructure, and human-centric digital experiences. Always brewing ideas and coffee at home.
           </p>
           <div class="font-mono text-xs text-gray-500 flex items-center space-x-2">
             <span>LOCATION: BANDUNG (BDO), ID</span>
@@ -82,13 +115,13 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- Col 3: Quick Links & Connect -->
+        <!-- Col 3: Transmissions -->
         <div class="space-y-4 md:text-right flex flex-col md:items-end justify-between">
           <div>
             <h4 class="font-mono text-xs uppercase tracking-widest text-gray-400 mb-4">// TRANSMISSIONS</h4>
             <div class="flex flex-wrap md:justify-end gap-3 font-mono text-xs">
               <a
-                href="https://github.com/lutficandaka"
+                href="https://github.com/bpmthm"
                 target="_blank"
                 rel="noopener"
                 class="px-3 py-1.5 bg-white/[0.03] hover:bg-accent/20 border border-white/10 hover:border-accent text-light hover:text-accent transition-all"
