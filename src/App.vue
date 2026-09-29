@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navbar from './components/layout/Navbar.vue'
 import Footer from './components/layout/Footer.vue'
+import { useTheme } from './composables/useTheme'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,7 +13,10 @@ const lenisInstance = ref(null)
 const showBackToTop = ref(false)
 const scrollProgress = ref(0)
 
+const { initTheme } = useTheme()
+
 onMounted(() => {
+  initTheme()
   // Initialize Lenis with optimized smooth scrolling physics
   const lenis = new Lenis({
     duration: 1.1,
@@ -66,7 +70,7 @@ const scrollToTop = () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-dark text-light relative selection:bg-accent selection:text-white">
+  <div class="min-h-screen flex flex-col bg-paper text-ink dark:bg-dark dark:text-light relative selection:bg-accent selection:text-white transition-colors duration-500">
     <!-- Fixed Hardware-Accelerated Analog Noise Grain -->
     <div class="analog-grain-overlay" aria-hidden="true"></div>
 
@@ -89,7 +93,7 @@ const scrollToTop = () => {
     <button
       v-if="showBackToTop"
       @click="scrollToTop"
-      class="fixed bottom-6 right-6 z-40 p-3 bg-dark/90 backdrop-blur-md border border-white/15 text-light hover:border-accent hover:text-accent rounded-full transition-all duration-300 shadow-accent-glow flex items-center justify-center group"
+      class="fixed bottom-6 right-6 z-40 p-3 bg-paper-alt/90 dark:bg-dark/90 backdrop-blur-md border border-paper-border dark:border-white/15 text-ink dark:text-light hover:border-accent hover:text-accent dark:hover:border-accent dark:hover:text-accent rounded-full transition-all duration-300 shadow-accent-glow flex items-center justify-center group"
       aria-label="Scroll to top"
     >
       <svg class="w-5 h-5 transform group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

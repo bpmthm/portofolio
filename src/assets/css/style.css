@@ -53,6 +53,15 @@ body {
   background: #D9381E;
 }
 
+/* Hide scrollbar for specific elements but keep functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 /* ===================================================
    ANALOG GRAIN & VIBES (HARDWARE ACCELERATED & FIXED)
    =================================================== */

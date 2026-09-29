@@ -10,6 +10,11 @@ const { currentLocale, toggleLanguage } = useLanguage()
 
 const activeCamera = ref('all')
 const activePhoto = ref(null)
+const imageErrors = ref({})
+
+const handleImageError = (id) => {
+  imageErrors.value[id] = true
+}
 
 const cameras = [
   { id: 'all', label: 'All Gear' },
@@ -41,6 +46,7 @@ const photoBase = [
   {
     id: 1,
     title: 'Nocturnal Bandung Alleyways',
+    imagePath: '/images/gallery/street-1.jpg',
     cameraType: 'fuji',
     cameraName: 'Fujifilm X-T50',
     lens: 'XF 23mm F1.4 R LM WR',
@@ -53,6 +59,7 @@ const photoBase = [
   {
     id: 2,
     title: 'Raindrops & Neon Glare',
+    imagePath: '/images/gallery/street-2.jpg',
     cameraType: 'nikon',
     cameraName: 'Nikon Coolpix',
     lens: 'Built-in 28-112mm',
@@ -65,6 +72,7 @@ const photoBase = [
   {
     id: 3,
     title: 'Gedong Cai Tjibadak Canopy',
+    imagePath: '/images/gallery/street-3.jpg',
     cameraType: 'analog',
     cameraName: 'Olympus OM-1 (35mm)',
     lens: 'Zuiko 50mm f/1.8',
@@ -77,6 +85,7 @@ const photoBase = [
   {
     id: 4,
     title: 'Train Station Commute Transit',
+    imagePath: '/images/gallery/street-4.jpg',
     cameraType: 'fuji',
     cameraName: 'Fujifilm X-T50',
     lens: 'XF 35mm F2 R WR',
@@ -89,6 +98,7 @@ const photoBase = [
   {
     id: 5,
     title: 'Midwest Emo Coffee Hour',
+    imagePath: '/images/gallery/street-5.jpg',
     cameraType: 'analog',
     cameraName: 'Canon Canonet QL17',
     lens: '40mm f/1.7',
@@ -101,6 +111,7 @@ const photoBase = [
   {
     id: 6,
     title: 'Brutalist Concrete & Shadow',
+    imagePath: '/images/gallery/street-6.jpg',
     cameraType: 'nikon',
     cameraName: 'Nikon Coolpix',
     lens: 'Built-in Zoom',
@@ -151,10 +162,10 @@ onMounted(() => {
   <section id="gallery" class="py-28 px-6 max-w-7xl mx-auto relative overflow-hidden">
     
     <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-paper-border dark:border-white/10">
       <div>
         <span class="font-mono text-xs uppercase tracking-widest text-accent font-bold">// 04. VISUAL ARCHIVE</span>
-        <h2 class="text-4xl md:text-6xl font-heading font-bold uppercase tracking-tight text-light mt-1">
+        <h2 class="text-4xl md:text-6xl font-heading font-bold uppercase tracking-tight text-ink dark:text-light mt-1">
           The Lens
         </h2>
       </div>
@@ -164,17 +175,17 @@ onMounted(() => {
         <!-- Minimalist In-Section Story Translate Toggle -->
         <button
           @click="toggleLanguage"
-          class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded bg-white/[0.04] hover:bg-accent/15 border border-white/10 hover:border-accent text-gray-300 hover:text-white font-mono text-[11px] tracking-wider transition-all duration-200 cursor-pointer group"
+          class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded bg-paper-alt dark:bg-white/[0.04] hover:bg-accent/15 border border-paper-border dark:border-white/10 hover:border-accent text-ink dark:text-gray-300 hover:text-black dark:hover:text-white font-mono text-[11px] tracking-wider transition-all duration-200 cursor-pointer group"
           :title="currentLocale === 'en' ? 'Ganti cerita foto ke Bahasa Indonesia' : 'Switch photo stories to English'"
         >
           <span class="text-accent text-[11px] group-hover:rotate-12 transition-transform">🌐</span>
-          <span class="text-muted text-[10px]">STORY:</span>
-          <span :class="currentLocale === 'id' ? 'text-accent font-bold' : 'text-gray-400'">ID</span>
-          <span class="text-white/20">/</span>
-          <span :class="currentLocale === 'en' ? 'text-accent font-bold' : 'text-gray-400'">EN</span>
+          <span class="text-ink-muted dark:text-muted text-[10px]">STORY:</span>
+          <span :class="currentLocale === 'id' ? 'text-accent font-bold' : 'text-ink-muted dark:text-gray-400'">ID</span>
+          <span class="text-ink-muted/20 dark:text-white/20">/</span>
+          <span :class="currentLocale === 'en' ? 'text-accent font-bold' : 'text-ink-muted dark:text-gray-400'">EN</span>
         </button>
 
-        <div class="h-4 w-[1px] bg-white/15 hidden sm:block"></div>
+        <div class="h-4 w-[1px] bg-paper-border dark:bg-white/15 hidden sm:block"></div>
 
         <!-- Filter Tabs -->
         <div class="flex flex-wrap gap-2">
@@ -186,7 +197,7 @@ onMounted(() => {
               'px-3.5 py-1.5 rounded transition-all cursor-pointer',
               activeCamera === cam.id
                 ? 'bg-accent text-white font-bold shadow-accent-glow'
-                : 'bg-white/[0.04] text-gray-400 hover:text-white border border-white/5'
+                : 'bg-paper-alt dark:bg-white/[0.04] text-ink-muted dark:text-gray-400 hover:text-ink dark:hover:text-white border border-paper-border dark:border-white/5'
             ]"
           >
             {{ cam.label }}
@@ -203,12 +214,22 @@ onMounted(() => {
         :key="photo.id"
         @click="activePhoto = photo"
         :class="[
-          'gallery-item break-inside-avoid relative rounded-lg overflow-hidden border border-white/10 hover:border-accent transition-all duration-300 group cursor-pointer shadow-xl bg-gradient-to-b',
+          'gallery-item break-inside-avoid relative rounded-lg overflow-hidden border border-paper-border dark:border-white/10 hover:border-accent dark:hover:border-accent transition-all duration-300 group cursor-pointer shadow-xl bg-gradient-to-b',
           photo.gradient,
           photo.heightClass
         ]"
       >
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(white_1px,transparent_1px)] [background-size:12px_12px]"></div>
+        <!-- Real Image Render with Fallback -->
+        <img
+          v-if="photo.imagePath && !imageErrors[photo.id]"
+          :src="photo.imagePath"
+          :alt="photo.title"
+          class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 ease-out group-hover:scale-105"
+          @error="handleImageError(photo.id)"
+          loading="lazy"
+        />
+
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(black_1px,transparent_1px)] dark:bg-[radial-gradient(white_1px,transparent_1px)] [background-size:12px_12px] z-10 pointer-events-none"></div>
 
         <div class="absolute top-3 left-3 z-20 font-mono text-[9px] text-white/75 bg-black/70 px-2 py-0.5 rounded backdrop-blur-sm border border-white/10">
           {{ photo.cameraName }}
@@ -217,21 +238,21 @@ onMounted(() => {
           {{ photo.aspect }}
         </div>
 
-        <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 p-6 flex flex-col justify-end space-y-2.5 backdrop-blur-sm">
+        <div class="absolute inset-0 bg-paper/90 dark:bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 p-6 flex flex-col justify-end space-y-2.5 backdrop-blur-sm">
           <span class="text-[11px] font-mono text-accent font-bold uppercase tracking-widest">// NARRATIVE & TELEMETRY</span>
-          <h4 class="text-xl font-heading font-bold text-white uppercase">{{ photo.title }}</h4>
-          <p class="text-xs text-gray-300 font-sans leading-relaxed">
+          <h4 class="text-xl font-heading font-bold text-ink dark:text-white uppercase">{{ photo.title }}</h4>
+          <p class="text-xs text-ink-muted dark:text-gray-300 font-sans leading-relaxed">
             {{ photo.story }}
           </p>
-          <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[11px] font-mono text-muted">
-            <span class="text-gray-300">{{ photo.exif }}</span>
+          <div class="pt-2 border-t border-paper-border dark:border-white/10 flex justify-between items-center text-[11px] font-mono text-ink-muted dark:text-muted">
+            <span class="text-ink dark:text-gray-300">{{ photo.exif }}</span>
             <span class="text-accent font-bold">[{{ currentLocale === 'id' ? 'Buka Detail' : 'Inspect Full' }} ↗]</span>
           </div>
         </div>
 
-        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10 group-hover:opacity-0 transition-opacity">
-          <h4 class="text-base font-heading font-bold text-white uppercase tracking-wider">{{ photo.title }}</h4>
-          <p class="text-xs text-gray-400 font-sans line-clamp-1 mt-0.5">{{ photo.story }}</p>
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-paper/95 via-paper/60 dark:from-black/95 dark:via-black/60 to-transparent z-10 group-hover:opacity-0 transition-opacity">
+          <h4 class="text-base font-heading font-bold text-ink dark:text-white uppercase tracking-wider">{{ photo.title }}</h4>
+          <p class="text-xs text-ink-muted dark:text-gray-400 font-sans line-clamp-1 mt-0.5">{{ photo.story }}</p>
           <span class="text-[10px] font-mono text-accent block mt-1">{{ photo.vibe }}</span>
         </div>
 
@@ -242,22 +263,22 @@ onMounted(() => {
     <!-- Interactive Lightbox Modal with Storytelling -->
     <div
       v-if="activePhoto"
-      class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-paper/90 dark:bg-black/90 backdrop-blur-xl"
       @click="activePhoto = null"
     >
       <div
-        class="glass-panel w-full max-w-4xl p-6 md:p-8 rounded-lg border border-accent relative shadow-2xl space-y-6"
+        class="glass-panel w-full max-w-4xl p-6 md:p-8 rounded-lg border border-accent relative shadow-lg dark:shadow-2xl space-y-6"
         @click.stop
       >
-        <div class="flex justify-between items-start pb-4 border-b border-white/10">
+        <div class="flex justify-between items-start pb-4 border-b border-paper-border dark:border-white/10">
           <div>
             <span class="text-xs font-mono text-accent font-bold uppercase tracking-wider">// VISUAL ARCHIVE & STORY</span>
-            <h3 class="text-3xl font-heading font-bold uppercase text-white mt-1">{{ activePhoto.title }}</h3>
-            <p class="text-xs font-mono text-gray-400">{{ activePhoto.cameraName }} — {{ activePhoto.lens }}</p>
+            <h3 class="text-3xl font-heading font-bold uppercase text-ink dark:text-white mt-1">{{ activePhoto.title }}</h3>
+            <p class="text-xs font-mono text-ink-muted dark:text-gray-400">{{ activePhoto.cameraName }} — {{ activePhoto.lens }}</p>
           </div>
           <button
             @click="activePhoto = null"
-            class="text-gray-400 hover:text-white font-mono text-sm px-3 py-1 bg-white/10 rounded cursor-pointer"
+            class="text-ink-muted dark:text-gray-400 hover:text-ink dark:hover:text-white font-mono text-sm px-3 py-1 bg-paper-alt dark:bg-white/10 rounded cursor-pointer"
           >
             ✕ {{ currentLocale === 'id' ? 'Tutup' : 'Close' }}
           </button>
@@ -265,11 +286,21 @@ onMounted(() => {
 
         <div
           :class="[
-            'w-full h-72 md:h-80 rounded flex items-center justify-center relative overflow-hidden bg-gradient-to-b border border-white/10',
+            'w-full h-72 md:h-96 rounded flex items-center justify-center relative overflow-hidden bg-gradient-to-b border border-paper-border dark:border-white/10',
             activePhoto.gradient
           ]"
         >
-          <div class="text-center p-8 space-y-3 relative z-10 max-w-2xl">
+          <!-- Real Image Render in Modal -->
+          <img
+            v-if="activePhoto.imagePath && !imageErrors[activePhoto.id]"
+            :src="activePhoto.imagePath"
+            :alt="activePhoto.title"
+            class="absolute inset-0 w-full h-full object-cover z-0"
+            @error="handleImageError(activePhoto.id)"
+          />
+          <div v-if="activePhoto.imagePath && !imageErrors[activePhoto.id]" class="absolute inset-0 bg-black/50 z-0"></div>
+
+          <div class="text-center p-6 md:p-8 space-y-3 relative z-10 max-w-2xl bg-black/70 backdrop-blur-md rounded-lg border border-white/10 shadow-2xl mx-4">
             <span class="px-3 py-1 bg-accent/20 border border-accent text-accent font-mono text-xs uppercase font-bold rounded inline-block">
               {{ activePhoto.vibe }}
             </span>
@@ -281,21 +312,21 @@ onMounted(() => {
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
-          <div class="p-3 bg-black/50 border border-white/10 rounded text-center">
-            <span class="text-gray-400 block text-[10px]">APERTURE / SPEED</span>
-            <span class="text-light font-bold">{{ activePhoto.exif.split('•')[0] }} / {{ activePhoto.exif.split('•')[1] }}</span>
+          <div class="p-3 bg-paper-alt dark:bg-black/50 border border-paper-border dark:border-white/10 rounded text-center">
+            <span class="text-ink-muted dark:text-gray-400 block text-[10px]">APERTURE / SPEED</span>
+            <span class="text-ink dark:text-light font-bold">{{ activePhoto.exif.split('•')[0] }} / {{ activePhoto.exif.split('•')[1] }}</span>
           </div>
-          <div class="p-3 bg-black/50 border border-white/10 rounded text-center">
-            <span class="text-gray-400 block text-[10px]">SENSITIVITY</span>
+          <div class="p-3 bg-paper-alt dark:bg-black/50 border border-paper-border dark:border-white/10 rounded text-center">
+            <span class="text-ink-muted dark:text-gray-400 block text-[10px]">SENSITIVITY</span>
             <span class="text-accent font-bold">{{ activePhoto.exif.split('•')[2] }}</span>
           </div>
-          <div class="p-3 bg-black/50 border border-white/10 rounded text-center">
-            <span class="text-gray-400 block text-[10px]">OPTICAL PROFILE</span>
-            <span class="text-light font-bold">{{ activePhoto.exif.split('•')[3] }}</span>
+          <div class="p-3 bg-paper-alt dark:bg-black/50 border border-paper-border dark:border-white/10 rounded text-center">
+            <span class="text-ink-muted dark:text-gray-400 block text-[10px]">OPTICAL PROFILE</span>
+            <span class="text-ink dark:text-light font-bold">{{ activePhoto.exif.split('•')[3] }}</span>
           </div>
-          <div class="p-3 bg-black/50 border border-white/10 rounded text-center">
-            <span class="text-gray-400 block text-[10px]">LOCATION ARCHIVE</span>
-            <span class="text-emerald-400 font-bold">BANDUNG // STREET</span>
+          <div class="p-3 bg-paper-alt dark:bg-black/50 border border-paper-border dark:border-white/10 rounded text-center">
+            <span class="text-ink-muted dark:text-gray-400 block text-[10px]">LOCATION ARCHIVE</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold">BANDUNG // STREET</span>
           </div>
         </div>
 

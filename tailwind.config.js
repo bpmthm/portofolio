@@ -4,14 +4,24 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        // Dark Theme Colors
         dark: '#0c0c0e',
         darker: '#070708',
         card: '#141417',
         light: '#F5F5F5',
         muted: '#8E8E93',
+        
+        // Light Theme Colors (Parchment / E-ink)
+        paper: '#EBE9E1',        // Main bg
+        'paper-alt': '#E1DFD6',  // Card/Panel bg
+        'paper-border': '#CFCBC0',// Borders
+        ink: '#1C1C1E',          // Main text
+        'ink-muted': '#5C5C60',  // Muted text
+
         accent: {
           DEFAULT: '#D9381E',
           hover: '#FF462B',
