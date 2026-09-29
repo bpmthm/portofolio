@@ -1,6 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const router = useRouter()
 const selectedProject = ref(null)
@@ -57,6 +61,28 @@ const projects = [
   }
 ]
 
+onMounted(() => {
+  nextTick(() => {
+    gsap.fromTo('.project-card',
+      {
+        y: 50,
+        opacity: 0 // Titik awal: Turun 50px dan ngilang
+      },
+      {
+        scrollTrigger: {
+          trigger: '#projects',
+          start: 'top 80%', // Animasi mulai saat bagian atas '#projects' menyentuh 80% layar
+        },
+        y: 0,
+        opacity: 1, // Titik akhir: Kembali ke posisi asli dan muncul
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power3.out',
+      }
+    )
+  })
+})
+
 const openPreview = (project, event) => {
   event.stopPropagation()
   isModalLoading.value = true
@@ -72,7 +98,7 @@ const navigateToCaseStudy = (id) => {
 </script>
 
 <template>
-  <section id="projects" class="py-28 px-6 bg-darker/60 relative border-t border-b border-white/5">
+  <section id="projects" class="py-28 px-6 bg-darker/60 relative border-t border-b border-white/5 overflow-hidden">
     <div class="max-w-7xl mx-auto">
       
       <!-- Header -->
@@ -94,7 +120,7 @@ const navigateToCaseStudy = (id) => {
         <div
           v-for="project in projects"
           :key="project.id"
-          class="glass-panel p-7 rounded-lg border border-white/10 hover:border-accent transition-all duration-300 flex flex-col justify-between group cursor-pointer relative tech-bracket"
+          class="project-card glass-panel p-7 rounded-lg border border-white/10 hover:border-accent transition-all duration-300 flex flex-col justify-between group cursor-pointer relative tech-bracket"
           @click="navigateToCaseStudy(project.id)"
         >
           <!-- Top Badge & Metric -->

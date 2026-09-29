@@ -1,5 +1,46 @@
+<script setup>
+import { onMounted, nextTick } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+onMounted(() => {
+  nextTick(() => {
+    gsap.fromTo('.impact-card',
+      { y: 60, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: '#impact',
+          start: 'top 85%',
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+      }
+    )
+
+    gsap.fromTo('.impact-element',
+      { y: 30, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: '#impact',
+          start: 'top 75%',
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: 'power3.out',
+      }
+    )
+  })
+})
+</script>
+
 <template>
-  <section id="impact" class="py-28 px-6 max-w-7xl mx-auto relative">
+  <section id="impact" class="py-28 px-6 max-w-7xl mx-auto relative overflow-hidden">
     
     <!-- Section Header -->
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/10">
@@ -15,7 +56,7 @@
     </div>
 
     <!-- Impact Showcase Banner Card -->
-    <div class="glass-panel rounded-lg border border-white/15 overflow-hidden p-8 md:p-12 relative tech-bracket">
+    <div class="impact-card glass-panel rounded-lg border border-white/15 overflow-hidden p-8 md:p-12 relative tech-bracket">
       
       <!-- Top Badges -->
       <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
@@ -36,37 +77,37 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         
         <div class="lg:col-span-7 space-y-6">
-          <h3 class="text-3xl md:text-4xl font-heading font-bold uppercase text-white leading-tight">
+          <h3 class="impact-element text-3xl md:text-4xl font-heading font-bold uppercase text-white leading-tight">
             TJIBADAK1921: Safeguarding 100+ Years of Urban Spring Heritage
           </h3>
 
-          <p class="text-gray-300 font-body text-base leading-relaxed">
+          <p class="impact-element text-gray-300 font-body text-base leading-relaxed">
             Sebagai <span class="text-white font-semibold">Co-founder TJIBADAK1921</span>, peran gue adalah <span class="text-accent font-medium">menginisiasi program penanaman dan pengalokasian pohon untuk area sempadan mata air</span>, merestorasi area sempadan di <span class="text-white font-medium">Gedong Cai Tjibadak (dibangun tahun 1921)</span>, serta membangun kesadaran kolektif warga melalui kampanye digital dan lokakarya ekologi pemuda.
           </p>
 
-          <p class="text-gray-400 font-body text-sm leading-relaxed">
+          <p class="impact-element text-gray-400 font-body text-sm leading-relaxed">
             Inisiatif ini memadukan kepemimpinan akar rumput, advokasi konservasi air tanah kota Bandung, serta pemanfaatan platform digital untuk pendataan dan edukasi publik berkelanjutan.
           </p>
 
           <!-- Impact Metrics Grid -->
-          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 font-mono">
+          <div class="impact-element grid grid-cols-3 gap-4 pt-4 border-t border-white/10 font-mono">
             <div>
               <div class="text-2xl md:text-3xl font-heading font-bold text-accent">1921</div>
               <div class="text-[11px] text-gray-400 uppercase">Heritage Spring</div>
             </div>
             <div>
-              <div class="text-2xl md:text-3xl font-heading font-bold text-accent">20+</div>
+              <div class="text-2xl md:text-3xl font-heading font-bold text-accent">200+</div>
               <div class="text-[11px] text-gray-400 uppercase">Trees Planted</div>
             </div>
             <div>
-              <div class="text-2xl md:text-3xl font-heading font-bold text-accent">60</div>
+              <div class="text-2xl md:text-3xl font-heading font-bold text-accent">60+</div>
               <div class="text-[11px] text-gray-400 uppercase">Youth Activists</div>
             </div>
           </div>
         </div>
 
         <!-- Right Side: Field Note / Archival Display -->
-        <div class="lg:col-span-5">
+        <div class="impact-element lg:col-span-5">
           <div class="bg-black/80 rounded border border-white/15 p-6 font-mono text-xs space-y-4 relative scanline-card">
             <div class="flex justify-between items-center text-gray-400 pb-3 border-b border-white/10">
               <span class="text-accent font-bold">[SPECIFIC ROLE & ACTIONS]</span>

@@ -1,5 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue' // Tambahin onMounted & nextTick
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const activeTab = ref('bio')
 const activeFilter = ref('all')
@@ -32,11 +36,30 @@ const filteredTech = computed(() => {
   if (activeFilter.value === 'all') return technologies
   return technologies.filter((t) => t.category === activeFilter.value)
 })
-import { computed } from 'vue'
+
+onMounted(() => {
+  nextTick(() => {
+    // Animasi muncul berurutan antara foto dan terminal
+    gsap.fromTo('.about-block', 
+      { y: 50, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: '#about',
+          start: 'top 80%',
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power3.out',
+      }
+    )
+  })
+})
 </script>
 
 <template>
-  <section id="about" class="py-28 px-6 max-w-7xl mx-auto relative">
+  <section id="about" class="py-28 px-6 max-w-7xl mx-auto relative overflow-hidden">
     
     <!-- Section Header -->
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/10">
@@ -55,7 +78,7 @@ import { computed } from 'vue'
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
       
       <!-- Left Column: Analog Photo Frame / HUD Visual (5 Cols) -->
-      <div class="lg:col-span-5 relative">
+      <div class="about-block lg:col-span-5 relative">
         <div class="glass-panel p-3 rounded-lg border border-white/15 relative tech-bracket scanline-card">
           
           <!-- Viewfinder HUD Elements -->
@@ -75,13 +98,9 @@ import { computed } from 'vue'
 
           <!-- Photo Canvas with Analog Styling -->
           <div class="relative w-full aspect-[4/5] bg-darker rounded overflow-hidden flex flex-col justify-end p-6 border border-white/5">
-            <!-- Background Visual Artwork -->
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
-            
-            <!-- Graphic Portrait Graphic Background -->
             <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#D9381E_1px,transparent_1px)] [background-size:16px_16px]"></div>
             
-            <!-- Analog Persona Stamp -->
             <div class="relative z-20 space-y-2">
               <span class="px-2 py-0.5 bg-accent text-white font-mono text-[10px] font-bold uppercase tracking-wider">
                 PI // OPERATOR
@@ -96,7 +115,6 @@ import { computed } from 'vue'
           </div>
         </div>
 
-        <!-- Quick Spec Pills below photo -->
         <div class="grid grid-cols-2 gap-3 mt-4 font-mono text-xs">
           <div class="glass-panel p-3 rounded border border-white/10 text-center">
             <span class="text-gray-400 block text-[10px] uppercase">Base Station</span>
@@ -110,12 +128,11 @@ import { computed } from 'vue'
       </div>
 
       <!-- Right Column: Interactive Terminal Tabs & Tech Badges (7 Cols) -->
-      <div class="lg:col-span-7 space-y-8">
+      <div class="about-block lg:col-span-7 space-y-8">
         
         <!-- Interactive Terminal Window -->
         <div class="glass-panel rounded-lg border border-white/15 overflow-hidden shadow-2xl">
           
-          <!-- Terminal Header Tabs -->
           <div class="bg-black/80 px-4 py-3 border-b border-white/10 flex items-center justify-between">
             <div class="flex items-center space-x-2">
               <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
@@ -123,7 +140,6 @@ import { computed } from 'vue'
               <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
             </div>
             
-            <!-- Navigation Tabs -->
             <div class="flex space-x-2 font-mono text-xs">
               <button
                 @click="activeTab = 'bio'"
@@ -155,10 +171,8 @@ import { computed } from 'vue'
             </div>
           </div>
 
-          <!-- Terminal Content Body -->
           <div class="p-6 font-mono text-sm leading-relaxed min-h-[260px] bg-darker/90">
             
-            <!-- Tab 1: Bio -->
             <div v-if="activeTab === 'bio'" class="space-y-4">
               <p class="text-gray-300">
                 <span class="text-accent font-bold">➜</span> Halo! Gue <span class="text-white font-semibold">Lutfi Candaka KUSUMAH</span>, akrab dipanggil <span class="text-accent font-semibold">Lutfi/Pi</span>. Lulusan D3 Teknik Informatika yang sehari-hari ngoprek backend, kadang server, dan jaringan.
@@ -173,22 +187,20 @@ import { computed } from 'vue'
               </div>
             </div>
 
-            <!-- Tab 2: Neofetch Specs -->
             <div v-if="activeTab === 'specs'" class="space-y-1.5 text-xs">
-              <p><span class="text-accent font-bold">pi@fedora-operator</span>:~$ neofetch</p>
+              <p><span class="text-accent font-bold">lutfi@fedora-operator</span>:~$ neofetch</p>
               <div class="grid grid-cols-2 gap-x-4 gap-y-1 pt-2 text-gray-300">
                 <div><span class="text-accent">OS:</span> Fedora Linux 41 (Workstation)</div>
                 <div><span class="text-accent">Host:</span> Custom Dev Machine</div>
                 <div><span class="text-accent">Kernel:</span> 6.12.x-x86_64</div>
                 <div><span class="text-accent">Shell:</span> Zsh / Bash with Starship</div>
                 <div><span class="text-accent">WM/DE:</span> Hyprland / GNOME</div>
-                <div><span class="text-accent">Editor:</span> Neovim & VS Code</div>
+                <div><span class="text-accent">Editor:</span> Antigravity & VS Code</div>
                 <div><span class="text-accent">Container:</span> Podman & Docker Compose</div>
                 <div><span class="text-accent">Network:</span> WireGuard, MikroTik, VLAN</div>
               </div>
             </div>
 
-            <!-- Tab 3: Philosophy -->
             <div v-if="activeTab === 'philosophy'" class="space-y-3">
               <blockquote class="border-l-2 border-accent pl-4 italic text-gray-300">
                 "Simplicity is prerequisite for reliability." — Edsger W. Dijkstra
@@ -201,14 +213,12 @@ import { computed } from 'vue'
           </div>
         </div>
 
-        <!-- Tech Stack Filter & Chips -->
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h4 class="font-mono text-xs uppercase tracking-widest text-gray-400 font-bold">
               // ARSENAL & PROFICIENCIES
             </h4>
             
-            <!-- Category Filter Buttons -->
             <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
               <button
                 v-for="cat in techCategories"
@@ -224,7 +234,6 @@ import { computed } from 'vue'
             </div>
           </div>
 
-          <!-- Technologies Grid -->
           <div class="flex flex-wrap gap-2.5">
             <div
               v-for="tech in filteredTech"

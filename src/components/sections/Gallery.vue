@@ -1,5 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue' // Tambahin onMounted & nextTick
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const activeCamera = ref('all')
 const activePhoto = ref(null)
@@ -96,10 +100,31 @@ const filteredPhotos = computed(() => {
   if (activeCamera.value === 'all') return photos
   return photos.filter((p) => p.cameraType === activeCamera.value)
 })
+
+onMounted(() => {
+  nextTick(() => {
+    // Animasi Staggered Masuk untuk Grid Foto
+    gsap.fromTo('.gallery-item',
+      { y: 40, opacity: 0, scale: 0.95 },
+      {
+        scrollTrigger: {
+          trigger: '#gallery',
+          start: 'top 80%',
+        },
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'back.out(1.2)',
+      }
+    )
+  })
+})
 </script>
 
 <template>
-  <section id="gallery" class="py-28 px-6 max-w-7xl mx-auto relative">
+  <section id="gallery" class="py-28 px-6 max-w-7xl mx-auto relative overflow-hidden">
     
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/10">
@@ -136,15 +161,13 @@ const filteredPhotos = computed(() => {
         :key="photo.id"
         @click="activePhoto = photo"
         :class="[
-          'break-inside-avoid relative rounded-lg overflow-hidden border border-white/10 hover:border-accent transition-all duration-300 group cursor-pointer shadow-xl bg-gradient-to-b',
+          'gallery-item break-inside-avoid relative rounded-lg overflow-hidden border border-white/10 hover:border-accent transition-all duration-300 group cursor-pointer shadow-xl bg-gradient-to-b',
           photo.gradient,
           photo.heightClass
         ]"
       >
-        <!-- Background Pattern / Noise Texture -->
         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(white_1px,transparent_1px)] [background-size:12px_12px]"></div>
 
-        <!-- Frame HUD Corner Marks -->
         <div class="absolute top-3 left-3 z-20 font-mono text-[9px] text-white/75 bg-black/70 px-2 py-0.5 rounded backdrop-blur-sm border border-white/10">
           {{ photo.cameraName }}
         </div>
@@ -152,7 +175,6 @@ const filteredPhotos = computed(() => {
           {{ photo.aspect }}
         </div>
 
-        <!-- Hover Overlay with Detailed Storytelling & EXIF -->
         <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 p-6 flex flex-col justify-end space-y-2.5 backdrop-blur-sm">
           <span class="text-[11px] font-mono text-accent font-bold uppercase tracking-widest">// NARRATIVE & TELEMETRY</span>
           <h4 class="text-xl font-heading font-bold text-white uppercase">{{ photo.title }}</h4>
@@ -165,7 +187,6 @@ const filteredPhotos = computed(() => {
           </div>
         </div>
 
-        <!-- Ambient Bottom Tag (When not hovering) -->
         <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10 group-hover:opacity-0 transition-opacity">
           <h4 class="text-base font-heading font-bold text-white uppercase tracking-wider">{{ photo.title }}</h4>
           <p class="text-xs text-gray-400 font-sans line-clamp-1 mt-0.5">{{ photo.story }}</p>
@@ -200,7 +221,6 @@ const filteredPhotos = computed(() => {
           </button>
         </div>
 
-        <!-- Frame Display -->
         <div
           :class="[
             'w-full h-72 md:h-80 rounded flex items-center justify-center relative overflow-hidden bg-gradient-to-b border border-white/10',
@@ -218,7 +238,6 @@ const filteredPhotos = computed(() => {
           </div>
         </div>
 
-        <!-- EXIF Badges -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
           <div class="p-3 bg-black/50 border border-white/10 rounded text-center">
             <span class="text-gray-400 block text-[10px]">APERTURE / SPEED</span>
