@@ -1,6 +1,7 @@
 <script setup>
-import { inject, ref, onMounted, onUnmounted } from 'vue'
+import { inject, ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useLanguage } from '../../composables/useLanguage'
 
 const lenis = inject('lenis', null)
 const route = useRoute()
@@ -8,12 +9,14 @@ const router = useRouter()
 const isMobileMenuOpen = ref(false)
 const activeSection = ref('hero')
 
-const navItems = [
-  { label: 'About', href: '#about', id: 'about' },
-  { label: 'Works', href: '#projects', id: 'projects' },
-  { label: 'Impact', href: '#impact', id: 'impact' },
-  { label: 'The Lens', href: '#gallery', id: 'gallery' },
-]
+const { currentLocale, toggleLanguage, t } = useLanguage()
+
+const navItems = computed(() => [
+  { label: t('nav.about'), href: '#about', id: 'about' },
+  { label: t('nav.works'), href: '#projects', id: 'projects' },
+  { label: t('nav.impact'), href: '#impact', id: 'impact' },
+  { label: t('nav.theLens'), href: '#gallery', id: 'gallery' },
+])
 
 const handleNavClick = async (href) => {
   isMobileMenuOpen.value = false
@@ -103,17 +106,30 @@ onUnmounted(() => {
         </button>
       </nav>
 
-      <!-- Right Action: Status / Contact -->
-      <div class="hidden md:flex items-center space-x-4">
+      <!-- Right Action: Status / Language Switcher / Contact -->
+      <div class="hidden md:flex items-center space-x-3">
+        <!-- Language Switcher Toggle Button -->
+        <button
+          @click="toggleLanguage"
+          class="px-2.5 py-1 bg-white/[0.04] hover:bg-accent/20 border border-white/15 hover:border-accent rounded text-xs font-mono tracking-wider transition-all duration-200 flex items-center space-x-1.5 text-gray-200 group cursor-pointer"
+          :title="currentLocale === 'en' ? 'Ganti ke Bahasa Indonesia' : 'Switch to English'"
+          aria-label="Toggle Language"
+        >
+          <span class="text-[11px] text-accent font-bold group-hover:rotate-12 transition-transform inline-block">🌐</span>
+          <span class="font-bold text-light group-hover:text-accent transition-colors">
+            {{ currentLocale === 'en' ? 'ID' : 'EN' }}
+          </span>
+        </button>
+
         <div class="flex items-center space-x-2 px-3 py-1 bg-white/[0.03] border border-white/10 rounded text-[11px] font-mono text-gray-300">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          <span>AVAILABLE</span>
+          <span>{{ t('nav.status') }}</span>
         </div>
         <a
           href="mailto:lutficandaka@gmail.com"
           class="px-4 py-1.5 bg-accent hover:bg-accent-hover text-white text-xs font-mono uppercase tracking-wider font-bold transition-all shadow-accent-glow"
         >
-          Contact
+          {{ t('nav.contact') }}
         </a>
       </div>
 
@@ -159,13 +175,29 @@ onUnmounted(() => {
           <span class="text-xs text-muted">&rarr;</span>
         </button>
       </div>
+
+      <!-- Mobile Language Switcher Row -->
+      <div class="pt-2 pb-1 border-b border-white/5 flex justify-between items-center">
+        <span class="text-xs text-gray-400 font-mono flex items-center space-x-1.5">
+          <span>🌐</span>
+          <span>{{ t('nav.switchLanguage') }}</span>
+        </span>
+        <button
+          @click="toggleLanguage"
+          class="px-3 py-1 bg-white/10 hover:bg-accent/20 border border-white/15 hover:border-accent text-accent font-mono text-xs font-bold rounded flex items-center space-x-1.5 transition-colors cursor-pointer"
+        >
+          <span>SWITCH:</span>
+          <span class="underline decoration-accent font-extrabold">{{ currentLocale === 'en' ? 'ID' : 'EN' }}</span>
+        </button>
+      </div>
+
       <div class="pt-2 flex justify-between items-center">
-        <span class="text-xs text-emerald-400 font-mono">● OPEN FOR OPPORTUNITIES</span>
+        <span class="text-xs text-emerald-400 font-mono">{{ t('nav.openOpportunities') }}</span>
         <a
           href="mailto:lutficandaka@gmail.com"
           class="px-4 py-2 bg-accent text-white text-xs font-bold uppercase"
         >
-          Get in Touch
+          {{ t('nav.getInTouch') }}
         </a>
       </div>
     </div>

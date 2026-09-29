@@ -2,8 +2,52 @@
 import { onMounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLanguage } from '../../composables/useLanguage'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { currentLocale, toggleLanguage } = useLanguage()
+
+const impactTranslations = {
+  en: {
+    descTag: 'COMMUNITY NARRATIVE',
+    p1Before: 'As ',
+    p1Role: 'Co-founder of TJIBADAK1921',
+    p1Mid1: ', my role encompasses ',
+    p1Focus: 'initiating tree planting and allocation programs for spring catchment zones',
+    p1Mid2: ', restoring riparian borders at ',
+    p1Heritage: 'Gedong Cai Tjibadak (constructed in 1921)',
+    p1After: ', and fostering collective civic awareness through digital campaigns and youth ecological workshops.',
+    p2: "This initiative merges grassroots leadership, advocacy for Bandung's urban groundwater conservation, and the utilization of digital platforms for sustainable public education and telemetry.",
+    roleTitle: '[SPECIFIC ROLE & ACTIONS]',
+    action1Title: '1. TREE PLANTING:',
+    action1Desc: 'Initiating tree planting and land allocation in spring catchment zones and slope areas.',
+    action2Title: '2. DIGITAL CAMPAIGN:',
+    action2Desc: 'Crafting social media narratives and public information channels.',
+    action3Title: '3. YOUTH WORKSHOPS:',
+    action3Desc: 'Hosting watershed sanitation and water conservation education with local youth.',
+    quote: '"Water is not merely a commodity, but a civilization heritage that we must steward together."',
+  },
+  id: {
+    descTag: 'NARASI KOMUNITAS',
+    p1Before: 'Sebagai ',
+    p1Role: 'Co-founder TJIBADAK1921',
+    p1Mid1: ', peran gue adalah ',
+    p1Focus: 'menginisiasi program penanaman dan pengalokasian pohon untuk area sempadan mata air',
+    p1Mid2: ', merestorasi area sempadan di ',
+    p1Heritage: 'Gedong Cai Tjibadak (dibangun tahun 1921)',
+    p1After: ', serta membangun kesadaran kolektif warga melalui kampanye digital dan lokakarya ekologi pemuda.',
+    p2: 'Inisiatif ini memadukan kepemimpinan akar rumput, advokasi konservasi air tanah kota Bandung, serta pemanfaatan platform digital untuk pendataan dan edukasi publik berkelanjutan.',
+    roleTitle: '[PERAN & AKSI SPESIFIK]',
+    action1Title: '1. TREE PLANTING:',
+    action1Desc: 'Menginisiasikan penanaman dan pengalokasian pohon di zona resapan mata air dan daerah tebing.',
+    action2Title: '2. DIGITAL CAMPAIGN:',
+    action2Desc: 'Membangun konten narasi media sosial dan platform informasi publik.',
+    action3Title: '3. YOUTH WORKSHOPS:',
+    action3Desc: 'Mengadakan edukasi sanitasi DAS dan konservasi air bersama pemuda lokal.',
+    quote: '"Air bukan sekadar komoditas, tapi warisan peradaban kota yang harus kita rawat bersama."',
+  }
+}
 
 onMounted(() => {
   nextTick(() => {
@@ -77,16 +121,35 @@ onMounted(() => {
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         
         <div class="lg:col-span-7 space-y-6">
+          <!-- In-Section Minimalist Translate Header -->
+          <div class="flex items-center justify-between pb-2 border-b border-white/5">
+            <span class="text-xs font-mono text-accent font-bold uppercase tracking-wider">
+              // {{ impactTranslations[currentLocale]?.descTag }}
+            </span>
+            <!-- Minimalist In-Section Translation Switch -->
+            <button
+              @click="toggleLanguage"
+              class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded bg-white/[0.04] hover:bg-accent/15 border border-white/10 hover:border-accent text-gray-300 hover:text-white font-mono text-[11px] tracking-wider transition-all duration-200 cursor-pointer group"
+              :title="currentLocale === 'en' ? 'Ganti narasi ke Bahasa Indonesia' : 'Switch narrative to English'"
+            >
+              <span class="text-accent text-[11px] group-hover:rotate-12 transition-transform">🌐</span>
+              <span class="text-muted text-[10px]">LANG:</span>
+              <span :class="currentLocale === 'id' ? 'text-accent font-bold' : 'text-gray-400'">ID</span>
+              <span class="text-white/20">/</span>
+              <span :class="currentLocale === 'en' ? 'text-accent font-bold' : 'text-gray-400'">EN</span>
+            </button>
+          </div>
+
           <h3 class="impact-element text-3xl md:text-4xl font-heading font-bold uppercase text-white leading-tight">
             TJIBADAK1921: Safeguarding 100+ Years of Urban Spring Heritage
           </h3>
 
           <p class="impact-element text-gray-300 font-body text-base leading-relaxed">
-            Sebagai <span class="text-white font-semibold">Co-founder TJIBADAK1921</span>, peran gue adalah <span class="text-accent font-medium">menginisiasi program penanaman dan pengalokasian pohon untuk area sempadan mata air</span>, merestorasi area sempadan di <span class="text-white font-medium">Gedong Cai Tjibadak (dibangun tahun 1921)</span>, serta membangun kesadaran kolektif warga melalui kampanye digital dan lokakarya ekologi pemuda.
+            {{ impactTranslations[currentLocale]?.p1Before }}<span class="text-white font-semibold">{{ impactTranslations[currentLocale]?.p1Role }}</span>{{ impactTranslations[currentLocale]?.p1Mid1 }}<span class="text-accent font-medium">{{ impactTranslations[currentLocale]?.p1Focus }}</span>{{ impactTranslations[currentLocale]?.p1Mid2 }}<span class="text-white font-medium">{{ impactTranslations[currentLocale]?.p1Heritage }}</span>{{ impactTranslations[currentLocale]?.p1After }}
           </p>
 
           <p class="impact-element text-gray-400 font-body text-sm leading-relaxed">
-            Inisiatif ini memadukan kepemimpinan akar rumput, advokasi konservasi air tanah kota Bandung, serta pemanfaatan platform digital untuk pendataan dan edukasi publik berkelanjutan.
+            {{ impactTranslations[currentLocale]?.p2 }}
           </p>
 
           <!-- Impact Metrics Grid -->
@@ -110,18 +173,18 @@ onMounted(() => {
         <div class="impact-element lg:col-span-5">
           <div class="bg-black/80 rounded border border-white/15 p-6 font-mono text-xs space-y-4 relative scanline-card">
             <div class="flex justify-between items-center text-gray-400 pb-3 border-b border-white/10">
-              <span class="text-accent font-bold">[SPECIFIC ROLE & ACTIONS]</span>
+              <span class="text-accent font-bold">{{ impactTranslations[currentLocale]?.roleTitle }}</span>
               <span>TJILEBAK ARCHIVE</span>
             </div>
             
             <div class="space-y-2.5 text-gray-300">
-              <p><span class="text-accent font-bold">1. TREE PLANTING:</span> Menginisiasikan penanaman dan pengalokasian pohon di zona resapan mata air dan daerah tebing.</p>
-              <p><span class="text-accent font-bold">2. DIGITAL CAMPAIGN:</span> Membangun konten narasi media sosial dan platform informasi publik.</p>
-              <p><span class="text-accent font-bold">3. YOUTH WORKSHOPS:</span> Mengadakan edukasi sanitasi DAS dan konservasi air bersama pemuda lokal.</p>
+              <p><span class="text-accent font-bold">{{ impactTranslations[currentLocale]?.action1Title }}</span> {{ impactTranslations[currentLocale]?.action1Desc }}</p>
+              <p><span class="text-accent font-bold">{{ impactTranslations[currentLocale]?.action2Title }}</span> {{ impactTranslations[currentLocale]?.action2Desc }}</p>
+              <p><span class="text-accent font-bold">{{ impactTranslations[currentLocale]?.action3Title }}</span> {{ impactTranslations[currentLocale]?.action3Desc }}</p>
             </div>
 
             <div class="p-3 bg-white/[0.03] border border-white/10 rounded text-[11px] text-gray-400 italic">
-              "Air bukan sekadar komoditas, tapi warisan peradaban kota yang harus kita rawat bersama."
+              {{ impactTranslations[currentLocale]?.quote }}
             </div>
 
             <div class="pt-2 flex justify-between items-center text-[10px] text-muted">

@@ -1,5 +1,25 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useLanguage } from '../../composables/useLanguage'
+
+const { currentLocale, toggleLanguage } = useLanguage()
+
+const footerTranslations = {
+  en: {
+    ctaTitle: "Interested in collaborating? Let's connect!",
+    ctaDesc: "Have a backend project, AI/RAG pipeline, network infrastructure, or a challenging creative venture? I'm always open to technical discussions and collaboration.",
+    ctaBtn: 'Contact Me (Email)',
+    bioDesc: 'Architecting reliable backend systems, containerized cloud infrastructure, and human-centric digital experiences. Always brewing ideas and coffee at home.',
+    emailBtn: 'Email Me ✉'
+  },
+  id: {
+    ctaTitle: 'Tertarik berkolaborasi? Mari kita ngobrol!',
+    ctaDesc: 'Punya project backend, pipeline AI/RAG, infrastruktur jaringan, atau ide kreatif yang menantang? Gue selalu terbuka untuk diskusi teknis dan kolaborasi.',
+    ctaBtn: 'Hubungi Gue (Email)',
+    bioDesc: 'Merancang arsitektur backend tangguh, infrastruktur cloud berkontainer, dan pengalaman digital yang berpusat pada manusia. Selalu meracik ide dan kopi di rumah.',
+    emailBtn: 'Kirim Email ✉'
+  }
+}
 
 const currentTime = ref('')
 let timer = null
@@ -35,12 +55,25 @@ onUnmounted(() => {
       <!-- Strong Action-Oriented CTA Banner -->
       <div class="glass-panel p-8 md:p-10 rounded-lg border border-accent/40 mb-16 relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-6 shadow-accent-glow">
         <div class="space-y-2 text-center md:text-left">
-          <span class="text-accent font-mono text-xs uppercase font-bold tracking-widest">// COLLABORATION READY</span>
+          <div class="flex items-center justify-center md:justify-start space-x-3">
+            <span class="text-accent font-mono text-xs uppercase font-bold tracking-widest">// COLLABORATION READY</span>
+            <!-- Minimalist In-Section Translate Switch -->
+            <button
+              @click="toggleLanguage"
+              class="inline-flex items-center space-x-1.5 px-2 py-0.5 rounded bg-white/[0.04] hover:bg-accent/15 border border-white/10 hover:border-accent text-gray-300 hover:text-white font-mono text-[10px] tracking-wider transition-all duration-200 cursor-pointer group"
+              :title="currentLocale === 'en' ? 'Ganti teks ke Bahasa Indonesia' : 'Switch text to English'"
+            >
+              <span class="text-accent text-[10px] group-hover:rotate-12 transition-transform">🌐</span>
+              <span :class="currentLocale === 'id' ? 'text-accent font-bold' : 'text-gray-400'">ID</span>
+              <span class="text-white/20">/</span>
+              <span :class="currentLocale === 'en' ? 'text-accent font-bold' : 'text-gray-400'">EN</span>
+            </button>
+          </div>
           <h2 class="text-3xl md:text-4xl font-heading font-bold uppercase text-white">
-            Tertarik berkolaborasi? Mari kita ngobrol!
+            {{ footerTranslations[currentLocale]?.ctaTitle }}
           </h2>
           <p class="text-gray-300 text-sm font-body max-w-xl">
-            Punya project backend, pipeline AI/RAG, infrastruktur jaringan, atau ide kreatif yang menantang? Gue selalu terbuka untuk diskusi teknis dan kolaborasi.
+            {{ footerTranslations[currentLocale]?.ctaDesc }}
           </p>
         </div>
 
@@ -49,7 +82,7 @@ onUnmounted(() => {
             href="mailto:lutficandaka@gmail.com"
             class="px-6 py-3.5 bg-accent hover:bg-accent-hover text-white font-mono text-xs uppercase tracking-wider font-bold transition-all shadow-lg hover:scale-105 flex items-center space-x-2"
           >
-            <span>Hubungi Gue (Email)</span>
+            <span>{{ footerTranslations[currentLocale]?.ctaBtn }}</span>
             <span>✉</span>
           </a>
           <a
@@ -76,7 +109,7 @@ onUnmounted(() => {
             </h3>
           </div>
           <p class="text-sm text-gray-400 font-body leading-relaxed max-w-sm">
-            Architecting reliable backend systems, containerized cloud infrastructure, and human-centric digital experiences. Always brewing ideas and coffee at home.
+            {{ footerTranslations[currentLocale]?.bioDesc }}
           </p>
           <div class="font-mono text-xs text-gray-500 flex items-center space-x-2">
             <span>LOCATION: BANDUNG (BDO), ID</span>
@@ -140,7 +173,7 @@ onUnmounted(() => {
                 href="mailto:lutficandaka@gmail.com"
                 class="px-3 py-1.5 bg-accent hover:bg-accent-hover text-white font-bold transition-all shadow-accent-glow"
               >
-                Email Me ✉
+                {{ footerTranslations[currentLocale]?.emailBtn }}
               </a>
             </div>
           </div>

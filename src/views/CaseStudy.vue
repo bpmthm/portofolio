@@ -1,92 +1,175 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useLanguage } from '../composables/useLanguage'
 
 const route = useRoute()
 const router = useRouter()
 const isLoading = ref(false)
 
+const { currentLocale, toggleLanguage } = useLanguage()
+
 const caseStudiesData = {
-  orion: {
-    id: 'orion',
-    title: 'ORION',
-    tagline: 'Enterprise Knowledge Retrieval & Hybrid RAG System',
-    category: 'Artificial Intelligence / Distributed Search',
-    status: 'PRODUCTION READY',
-    timeline: '2024 • 4 Months',
-    client: 'Enterprise Knowledge Management',
-    role: 'Lead AI & Backend Architect',
-    overview: 'ORION adalah sistem pencarian dan penalaran dokumen perusahaan berarsitektur Hybrid RAG (Retrieval-Augmented Generation) yang memadukan keyword search berkecepatan tinggi (BM25) dengan dense vector similarity berbasis embeddings.',
-    problem: 'Sistem pencarian tradisional berbasis full-text search seringkali gagal menangkap konteks semantik teknis yang kompleks, sedangkan pure vector search rentan terhadap hallucination dan lambat dalam mencocokkan kode part atau istilah eksak spesifik pada dokumen teknis SOP perusahaan.',
-    solution: 'Membangun pipeline hybrid search paralel yang memproses query secara bersamaan ke ChromaDB (Cosine Vector Search) dan BM25 Sparse Index. Hasil dari kedua engine kemudian dilewatkan ke Cross-Encoder Re-Ranking model sebelum disintesis oleh LLM dengan mekanisme Human-in-the-Loop active feedback.',
-    architectureSteps: [
-      { step: '01', title: 'Document Ingestion & Chunking', desc: 'Pemrosesan PDF, DOCX, dan Markdown secara asinkron dengan smart chunking berbasis semantik.' },
-      { step: '02', title: 'Dual Parallel Retrieval', desc: 'Query pengguna dieksekusi secara paralel ke BM25 Sparse Index dan ChromaDB Vector Embeddings.' },
-      { step: '03', title: 'Cross-Encoder Re-Ranking', desc: 'Top-K kandidat dari kedua pencarian digabungkan dan di-skor ulang menggunakan Cross-Encoder.' },
-      { step: '04', title: 'Grounded LLM Generation', desc: 'LLM menyusun jawaban lengkap dengan sitasi dokumen sumber dan skor keyakinan terverifikasi.' }
-    ],
-    techStack: ['Python 3.11', 'FastAPI', 'ChromaDB', 'Sentence Transformers', 'LangChain', 'Docker Compose', 'Vue 3'],
-    metrics: [
-      { label: 'Retrieval Latency', value: '<120ms' },
-      { label: 'Recall Accuracy', value: '96.4%' },
-      { label: 'Hallucination Drop', value: '-82%' }
-    ]
+  en: {
+    orion: {
+      id: 'orion',
+      title: 'ORION',
+      tagline: 'Enterprise Knowledge Retrieval & Hybrid RAG System',
+      category: 'Artificial Intelligence / Distributed Search',
+      status: 'PRODUCTION READY',
+      timeline: '2024 • 4 Months',
+      client: 'Enterprise Knowledge Management',
+      role: 'Lead AI & Backend Architect',
+      overview: 'ORION is an enterprise document reasoning and retrieval system built on a Hybrid RAG (Retrieval-Augmented Generation) architecture, fusing high-speed BM25 keyword search with dense vector embeddings.',
+      problem: 'Traditional full-text search systems often fail to capture nuanced semantic context, whereas pure vector search is vulnerable to hallucinations and struggles with exact part codes or specialized acronyms in enterprise SOP manuals.',
+      solution: 'Engineered a parallel hybrid search pipeline querying ChromaDB (Cosine Vector Search) and BM25 Sparse Index concurrently. Candidate results are re-ranked using a Cross-Encoder model before being synthesized by an LLM with Human-in-the-Loop active feedback.',
+      architectureSteps: [
+        { step: '01', title: 'Document Ingestion & Chunking', desc: 'Asynchronous PDF, DOCX, and Markdown processing with semantic-boundary smart chunking.' },
+        { step: '02', title: 'Dual Parallel Retrieval', desc: 'User query dispatched simultaneously to BM25 Sparse Index and ChromaDB Vector Embeddings.' },
+        { step: '03', title: 'Cross-Encoder Re-Ranking', desc: 'Top-K candidates from both streams are fused and re-scored via a cross-attention transformer.' },
+        { step: '04', title: 'Grounded LLM Generation', desc: 'LLM synthesizes verifiable answers with source document citations and confidence telemetry.' }
+      ],
+      techStack: ['Python 3.11', 'FastAPI', 'ChromaDB', 'Sentence Transformers', 'LangChain', 'Docker Compose', 'Vue 3'],
+      metrics: [
+        { label: 'Retrieval Latency', value: '<120ms' },
+        { label: 'Recall Accuracy', value: '96.4%' },
+        { label: 'Hallucination Drop', value: '-82%' }
+      ]
+    },
+    chitose: {
+      id: 'chitose',
+      title: 'PT Chitose Internasional Tbk',
+      tagline: 'Dual-Database Supplier Evaluation & Procurement Portal',
+      category: 'Enterprise ERP & Systems Integration',
+      status: 'DEPLOYED IN ENTERPRISE',
+      timeline: '2023 • 6 Months',
+      client: 'PT Chitose Internasional Tbk (Furniture Industry)',
+      role: 'Full-Stack Systems Engineer',
+      overview: 'Digitalization of vendor evaluation and procurement lifecycle for PT Chitose Internasional Tbk using a Dual-Database architecture bridging core SAP ERP with a modern MySQL data warehouse.',
+      problem: 'Vendor evaluations across hundreds of suppliers were historically conducted through fragmented spreadsheets, resulting in purchasing delays, manual grading errors, and high risk of data discrepancy with the main SAP database.',
+      solution: 'Architected a CodeIgniter 4 platform with isolated dual-database connections: SQL Server (SAP RFC Live Tables) for procurement transactions and MySQL for dynamic evaluation criteria, unified with internal SSO and automated multi-criteria scoring.',
+      architectureSteps: [
+        { step: '01', title: 'SAP Data Extraction', desc: 'Automated periodic extraction of purchase orders and supplier delivery fulfillment from SQL Server SAP ERP.' },
+        { step: '02', title: 'Dual-DB Query Engine', desc: 'Isolated read-only connection to core ERP preserving database integrity without write-lock bottlenecks.' },
+        { step: '03', title: 'Multi-Criteria Scoring', desc: 'Weighted algorithmic grading across Quality, Delivery Timeliness, Pricing, and ESG compliance.' },
+        { step: '04', title: 'SSO & Executive Portal', desc: 'Centralized Single Sign-On and executive analytics dashboards for procurement management.' }
+      ],
+      techStack: ['PHP 8.2', 'CodeIgniter 4', 'SQL Server (SAP ERP)', 'MySQL', 'JavaScript', 'Bootstrap & Tailwind'],
+      metrics: [
+        { label: 'Audit Compliance', value: '100%' },
+        { label: 'Procurement Cycle', value: '2x Faster' },
+        { label: 'Supplier Coverage', value: '500+ Vendors' }
+      ]
+    },
+    'mbg-iot': {
+      id: 'mbg-iot',
+      title: 'MBG Tracker',
+      tagline: 'IoT-Driven Food Waste Telemetry & Generative AI Menu Optimizer',
+      category: 'Internet of Things & Predictive AI',
+      status: 'PILOT DEPLOYMENT',
+      timeline: '2024 • 3 Months',
+      client: 'Institutional Catering & School Nutrition Program',
+      role: 'IoT Hardware & Backend Architect',
+      overview: 'Intelligent food waste monitoring ecosystem driven by ESP32 load-cell stations, forecasting daily consumption trends via Weighted Moving Average (WMA) and optimizing nutritious menus with Generative AI.',
+      problem: 'Elevated food waste rates across institutional catering facilities caused by uncalibrated portion sizes and rigid meal plans that ignore real diner consumption patterns, leading to budget inflation and unnecessary ecological waste.',
+      solution: '1. Applied Weighted Moving Average (WMA) algorithms to historical waste telemetry, prioritizing recent intake data to calibrate future serving sizes accurately.\n2. Integrated Gemini Generative AI to formulate balanced, cost-effective menu plans by automatically filtering out raw ingredients with high historical waste patterns.',
+      architectureSteps: [
+        { step: '01', title: 'Edge Weight Sensing (ESP32)', desc: 'Real-time load-cell stations classify and weigh leftover food volume per meal category at tray return points.' },
+        { step: '02', title: 'MQTT Telemetry & Pipeline', desc: 'Weight measurements stream through an ultralow-latency MQTT broker into FastAPI and structured PostgreSQL storage.' },
+        { step: '03', title: 'WMA Historical Trend Forecasting', desc: 'Weighted Moving Average models calculate day-to-day consumption curves to recommend precision portion sizing.' },
+        { step: '04', title: 'GenAI Recipe Formulation', desc: 'Gemini API synthesizes balanced, budget-friendly meal formulas while filtering out high-waste ingredients.' }
+      ],
+      techStack: ['ESP32 / C++', 'MQTT / Mosquitto', 'Python / FastAPI', 'Gemini AI API', 'PostgreSQL', 'Vue 3', 'Docker'],
+      metrics: [
+        { label: 'Food Waste Reduction', value: '38%' },
+        { label: 'Telemetry Uptime', value: '99.8%' },
+        { label: 'Raw Ingredient Savings', value: '22%' }
+      ]
+    }
   },
-  chitose: {
-    id: 'chitose',
-    title: 'PT Chitose Internasional Tbk',
-    tagline: 'Dual-Database Supplier Evaluation & Procurement Portal',
-    category: 'Enterprise ERP & Systems Integration',
-    status: 'DEPLOYED IN ENTERPRISE',
-    timeline: '2023 • 6 Months',
-    client: 'PT Chitose Internasional Tbk (Furniture Industry)',
-    role: 'Full-Stack Systems Engineer',
-    overview: 'Digitalisasi sistem evaluasi vendor dan manajemen procurement PT Chitose Internasional Tbk menggunakan arsitektur Dual-Database yang terhubung langsung dengan sistem core SAP ERP dan MySQL data warehouse.',
-    problem: 'Proses evaluasi ratusan supplier sebelumnya dilakukan manual dengan spreadsheet yang terfragmentasi, menyebabkan keterlambatan penentuan purchasing order dan risiko inkonsistensi data dengan database SAP utama.',
-    solution: 'Merancang arsitektur sistem berbasis CodeIgniter 4 dengan integrasi dual connection: SQL Server (SAP RFC Live Tables) untuk data transaksi pengadaan dan MySQL untuk parameter kriteria evaluasi dinamis. Dilengkapi Single Sign-On (SSO) internal dan kalkulasi otomatis matriks skor supplier.',
-    architectureSteps: [
-      { step: '01', title: 'SAP Data Extraction', desc: 'Sinkronisasi berkala data PO dan delivery reliability dari SQL Server SAP ERP.' },
-      { step: '02', title: 'Dual-DB Query Engine', desc: 'Koneksi simultan terisolasi untuk menjaga integritas data core ERP tanpa risiko write lock.' },
-      { step: '03', title: 'Multi-Criteria Scoring', desc: 'Algoritma pembobotan otomatis (Quality, Delivery, Price, ESG Compliance).' },
-      { step: '04', title: 'SSO & Executive Portal', desc: 'Autentikasi terpusat dan dashboard analitik evaluasi vendor untuk manajemen.' }
-    ],
-    techStack: ['PHP 8.2', 'CodeIgniter 4', 'SQL Server (SAP ERP)', 'MySQL', 'JavaScript', 'Bootstrap & Tailwind'],
-    metrics: [
-      { label: 'Audit Compliance', value: '100%' },
-      { label: 'Procurement Cycle', value: '2x Faster' },
-      { label: 'Supplier Coverage', value: '500+ Vendors' }
-    ]
-  },
-  'mbg-iot': {
-    id: 'mbg-iot',
-    title: 'MBG Tracker',
-    tagline: 'IoT-Driven Food Waste Telemetry & Generative AI Menu Optimizer',
-    category: 'Internet of Things & Predictive AI',
-    status: 'PILOT DEPLOYMENT',
-    timeline: '2024 • 3 Months',
-    client: 'Institutional Catering & School Nutrition Program',
-    role: 'IoT Hardware & Backend Architect',
-    overview: 'Sistem monitoring limbah makanan cerdas berbasis stasiun timbangan IoT (ESP32) yang menganalisis pola konsumsi harian menggunakan algoritma Weighted Moving Average (WMA) dan mengoptimalkan komposisi menu bergizi dengan Generative AI.',
-    problem: 'Tingginya tingkat makanan terbuang (food waste) di fasilitas penyedia makanan institusional/sekolah akibat menu yang tidak sesuai preferensi/selera siswa serta estimasi porsi berlebihan tanpa dasar data terukur. Hal ini memicu pemborosan anggaran bahan baku dan dampak lingkungan yang signifikan.',
-    solution: '1. Menggunakan algoritma Weighted Moving Average (WMA) untuk menganalisis tren historis limbah makanan (memberikan bobot lebih tinggi pada data konsumsi hari-hari terkini) guna memprediksi volume limbah masa depan dan membantu pengelola mengkalibrasi gramasi porsi secara presisi.\n2. Mengintegrasikan Generative AI (Gemini API) untuk menyusun rekomendasi variasi menu baru yang seimbang gizi dan ramah budget, dengan secara otomatis memfilter atau menghindari bahan-bahan makanan yang terbukti memiliki tren waste tinggi pada data historis WMA.',
-    architectureSteps: [
-      { step: '01', title: 'Edge Weight Sensing (ESP32)', desc: 'Sensor load cell di stasiun pengembalian baki menimbang dan mengategorikan massa limbah sisa makanan per jenis menu secara real-time.' },
-      { step: '02', title: 'MQTT Telemetry & Pipeline', desc: 'Data bobot dikirim melalui broker MQTT berlatensi rendah ke FastAPI backend dan disimpan terstruktur di PostgreSQL.' },
-      { step: '03', title: 'WMA Historical Trend Forecasting', desc: 'Algoritma Weighted Moving Average menghitung bobot tren waste harian untuk memprediksi sisa dan merekomendasikan penyesuaian porsi.' },
-      { step: '04', title: 'GenAI Recipe Formulation', desc: 'Gemini API merancang alternatif menu bergizi baru dengan memperhitungkan batasan budget dan memfilter bahan makanan pemicu waste tinggi.' }
-    ],
-    techStack: ['ESP32 / C++', 'MQTT / Mosquitto', 'Python / FastAPI', 'Gemini AI API', 'PostgreSQL', 'Vue 3', 'Docker'],
-    metrics: [
-      { label: 'Food Waste Reduction', value: '38%' },
-      { label: 'Telemetry Uptime', value: '99.8%' },
-      { label: 'Raw Ingredient Savings', value: '22%' }
-    ]
+  id: {
+    orion: {
+      id: 'orion',
+      title: 'ORION',
+      tagline: 'Sistem Temu Balik Informasi & Hybrid RAG Korporat',
+      category: 'Artificial Intelligence / Distributed Search',
+      status: 'PRODUCTION READY',
+      timeline: '2024 • 4 Bulan',
+      client: 'Enterprise Knowledge Management',
+      role: 'Lead AI & Backend Architect',
+      overview: 'ORION adalah sistem pencarian dan penalaran dokumen perusahaan berarsitektur Hybrid RAG (Retrieval-Augmented Generation) yang memadukan keyword search berkecepatan tinggi (BM25) dengan dense vector similarity berbasis embeddings.',
+      problem: 'Sistem pencarian tradisional berbasis full-text search seringkali gagal menangkap konteks semantik teknis yang kompleks, sedangkan pure vector search rentan terhadap hallucination dan lambat dalam mencocokkan kode part atau istilah eksak spesifik pada dokumen teknis SOP perusahaan.',
+      solution: 'Membangun pipeline hybrid search paralel yang memproses query secara bersamaan ke ChromaDB (Cosine Vector Search) dan BM25 Sparse Index. Hasil dari kedua engine kemudian dilewatkan ke Cross-Encoder Re-Ranking model sebelum disintesis oleh LLM dengan mekanisme Human-in-the-Loop active feedback.',
+      architectureSteps: [
+        { step: '01', title: 'Document Ingestion & Chunking', desc: 'Pemrosesan PDF, DOCX, dan Markdown secara asinkron dengan smart chunking berbasis semantik.' },
+        { step: '02', title: 'Dual Parallel Retrieval', desc: 'Query pengguna dieksekusi secara paralel ke BM25 Sparse Index dan ChromaDB Vector Embeddings.' },
+        { step: '03', title: 'Cross-Encoder Re-Ranking', desc: 'Top-K kandidat dari kedua pencarian digabungkan dan di-skor ulang menggunakan Cross-Encoder.' },
+        { step: '04', title: 'Grounded LLM Generation', desc: 'LLM menyusun jawaban lengkap dengan sitasi dokumen sumber dan skor keyakinan terverifikasi.' }
+      ],
+      techStack: ['Python 3.11', 'FastAPI', 'ChromaDB', 'Sentence Transformers', 'LangChain', 'Docker Compose', 'Vue 3'],
+      metrics: [
+        { label: 'Retrieval Latency', value: '<120ms' },
+        { label: 'Recall Accuracy', value: '96.4%' },
+        { label: 'Hallucination Drop', value: '-82%' }
+      ]
+    },
+    chitose: {
+      id: 'chitose',
+      title: 'PT Chitose Internasional Tbk',
+      tagline: 'Portal Evaluasi Pemasok & Pengadaan Berbasis Dual-Database',
+      category: 'Enterprise ERP & Systems Integration',
+      status: 'DEPLOYED IN ENTERPRISE',
+      timeline: '2023 • 6 Bulan',
+      client: 'PT Chitose Internasional Tbk (Furniture Industry)',
+      role: 'Full-Stack Systems Engineer',
+      overview: 'Digitalisasi sistem evaluasi vendor dan manajemen procurement PT Chitose Internasional Tbk menggunakan arsitektur Dual-Database yang terhubung langsung dengan sistem core SAP ERP dan MySQL data warehouse.',
+      problem: 'Proses evaluasi ratusan supplier sebelumnya dilakukan manual dengan spreadsheet yang terfragmentasi, menyebabkan keterlambatan penentuan purchasing order dan risiko inkonsistensi data dengan database SAP utama.',
+      solution: 'Merancang arsitektur sistem berbasis CodeIgniter 4 dengan integrasi dual connection: SQL Server (SAP RFC Live Tables) untuk data transaksi pengadaan dan MySQL untuk parameter kriteria evaluasi dinamis. Dilengkapi Single Sign-On (SSO) internal dan kalkulasi otomatis matriks skor supplier.',
+      architectureSteps: [
+        { step: '01', title: 'SAP Data Extraction', desc: 'Sinkronisasi berkala data PO dan delivery reliability dari SQL Server SAP ERP.' },
+        { step: '02', title: 'Dual-DB Query Engine', desc: 'Koneksi simultan terisolasi untuk menjaga integritas data core ERP tanpa risiko write lock.' },
+        { step: '03', title: 'Multi-Criteria Scoring', desc: 'Algoritma pembobotan otomatis (Quality, Delivery, Price, ESG Compliance).' },
+        { step: '04', title: 'SSO & Executive Portal', desc: 'Autentikasi terpusat dan dashboard analitik evaluasi vendor untuk manajemen.' }
+      ],
+      techStack: ['PHP 8.2', 'CodeIgniter 4', 'SQL Server (SAP ERP)', 'MySQL', 'JavaScript', 'Bootstrap & Tailwind'],
+      metrics: [
+        { label: 'Audit Compliance', value: '100%' },
+        { label: 'Procurement Cycle', value: '2x Faster' },
+        { label: 'Supplier Coverage', value: '500+ Vendors' }
+      ]
+    },
+    'mbg-iot': {
+      id: 'mbg-iot',
+      title: 'MBG Tracker',
+      tagline: 'Telemetri Limbah Makanan Berbasis IoT & Pengoptimal Menu AI Generatif',
+      category: 'Internet of Things & Predictive AI',
+      status: 'PILOT DEPLOYMENT',
+      timeline: '2024 • 3 Bulan',
+      client: 'Institutional Catering & School Nutrition Program',
+      role: 'IoT Hardware & Backend Architect',
+      overview: 'Sistem monitoring limbah makanan cerdas berbasis stasiun timbangan IoT (ESP32) yang menganalisis pola konsumsi harian menggunakan algoritma Weighted Moving Average (WMA) dan mengoptimalkan komposisi menu bergizi dengan Generative AI.',
+      problem: 'Tingginya tingkat makanan terbuang (food waste) di fasilitas penyedia makanan institusional/sekolah akibat menu yang tidak sesuai preferensi/selera siswa serta estimasi porsi berlebihan tanpa dasar data terukur. Hal ini memicu pemborosan anggaran bahan baku dan dampak lingkungan yang signifikan.',
+      solution: '1. Menggunakan algoritma Weighted Moving Average (WMA) untuk menganalisis tren historis limbah makanan (memberikan bobot lebih tinggi pada data konsumsi hari-hari terkini) guna memprediksi volume limbah masa depan dan membantu pengelola mengkalibrasi gramasi porsi secara presisi.\n2. Mengintegrasikan Generative AI (Gemini API) untuk menyusun rekomendasi variasi menu baru yang seimbang gizi dan ramah budget, dengan secara otomatis memfilter atau menghindari bahan-bahan makanan yang terbukti memiliki tren waste tinggi pada data historis WMA.',
+      architectureSteps: [
+        { step: '01', title: 'Edge Weight Sensing (ESP32)', desc: 'Sensor load cell di stasiun pengembalian baki menimbang dan mengategorikan massa limbah sisa makanan per jenis menu secara real-time.' },
+        { step: '02', title: 'MQTT Telemetry & Pipeline', desc: 'Data bobot dikirim melalui broker MQTT berlatensi rendah ke FastAPI backend dan disimpan terstruktur di PostgreSQL.' },
+        { step: '03', title: 'WMA Historical Trend Forecasting', desc: 'Algoritma Weighted Moving Average menghitung bobot tren waste harian untuk memprediksi sisa dan merekomendasikan penyesuaian porsi.' },
+        { step: '04', title: 'GenAI Recipe Formulation', desc: 'Gemini API merancang alternatif menu bergizi baru dengan memperhitungkan batasan budget dan memfilter bahan makanan pemicu waste tinggi.' }
+      ],
+      techStack: ['ESP32 / C++', 'MQTT / Mosquitto', 'Python / FastAPI', 'Gemini AI API', 'PostgreSQL', 'Vue 3', 'Docker'],
+      metrics: [
+        { label: 'Food Waste Reduction', value: '38%' },
+        { label: 'Telemetry Uptime', value: '99.8%' },
+        { label: 'Raw Ingredient Savings', value: '22%' }
+      ]
+    }
   }
 }
 
 const currentProject = computed(() => {
   const id = route.params.id
-  return caseStudiesData[id] || {
+  const dataset = caseStudiesData[currentLocale.value] || caseStudiesData.en
+  return dataset[id] || {
     id: 'unknown',
     title: `Project: ${id}`,
     tagline: 'Enterprise System Case Study',
@@ -122,25 +205,42 @@ const navigateToProject = (id) => {
 <template>
   <div class="pt-28 pb-24 px-6 max-w-5xl mx-auto min-h-screen">
     
-    <!-- Top Nav Back -->
+    <!-- Top Nav Back and Minimalist Language Switch -->
     <div class="mb-10 flex items-center justify-between">
       <router-link
         to="/"
         class="inline-flex items-center space-x-2 font-mono text-xs text-accent hover:text-accent-hover font-bold uppercase tracking-wider group"
       >
         <span class="transform group-hover:-translate-x-1 transition-transform">&larr;</span>
-        <span>Back to Base Station</span>
+        <span>{{ currentLocale === 'id' ? 'Kembali ke Beranda' : 'Back to Base Station' }}</span>
       </router-link>
 
-      <span class="font-mono text-xs text-gray-500">
-        SYS.ID // {{ currentProject.id }}
-      </span>
+      <div class="flex items-center space-x-3">
+        <!-- Minimalist In-Section Documentation Translate Switch -->
+        <button
+          @click="toggleLanguage"
+          class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded bg-white/[0.04] hover:bg-accent/15 border border-white/10 hover:border-accent text-gray-300 hover:text-white font-mono text-[11px] tracking-wider transition-all duration-200 cursor-pointer group"
+          :title="currentLocale === 'en' ? 'Ganti dokumentasi ke Bahasa Indonesia' : 'Switch documentation to English'"
+        >
+          <span class="text-accent text-[11px] group-hover:rotate-12 transition-transform">🌐</span>
+          <span class="text-muted text-[10px]">DOCS:</span>
+          <span :class="currentLocale === 'id' ? 'text-accent font-bold' : 'text-gray-400'">ID</span>
+          <span class="text-white/20">/</span>
+          <span :class="currentLocale === 'en' ? 'text-accent font-bold' : 'text-gray-400'">EN</span>
+        </button>
+
+        <span class="font-mono text-xs text-gray-500">
+          SYS.ID // {{ currentProject.id }}
+        </span>
+      </div>
     </div>
 
     <!-- Loading State Indicator -->
     <div v-if="isLoading" class="glass-panel p-16 rounded-lg text-center space-y-4 my-12 animate-pulse">
       <div class="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto"></div>
-      <p class="font-mono text-xs text-accent uppercase tracking-widest">// LOADING ARCHITECTURE TELEMETRY...</p>
+      <p class="font-mono text-xs text-accent uppercase tracking-widest">
+        // {{ currentLocale === 'id' ? 'MEMUAT TELEMETRI ARSITEKTUR...' : 'LOADING ARCHITECTURE TELEMETRY...' }}
+      </p>
     </div>
 
     <!-- Main Content (when not loading) -->
@@ -185,7 +285,7 @@ const navigateToProject = (id) => {
       <section class="glass-panel p-8 rounded-lg border border-white/10 space-y-4">
         <h2 class="text-2xl font-heading font-bold uppercase text-white tracking-wider flex items-center space-x-2">
           <span class="text-accent font-mono text-base">//</span>
-          <span>Executive Overview</span>
+          <span>{{ currentLocale === 'id' ? 'Ringkasan Eksekutif' : 'Executive Overview' }}</span>
         </h2>
         <p class="text-gray-300 font-body leading-relaxed">
           {{ currentProject.overview }}
@@ -197,9 +297,11 @@ const navigateToProject = (id) => {
         
         <div class="glass-panel p-8 rounded-lg border border-white/10 space-y-4">
           <div class="flex items-center space-x-2 text-red-400 font-mono text-xs font-bold uppercase">
-            <span>● THE CHALLENGE (MASALAH)</span>
+            <span>● {{ currentLocale === 'id' ? 'TANTANGAN & MASALAH' : 'THE CHALLENGE (MASALAH)' }}</span>
           </div>
-          <h3 class="text-xl font-heading font-bold uppercase text-white">The Core Problem</h3>
+          <h3 class="text-xl font-heading font-bold uppercase text-white">
+            {{ currentLocale === 'id' ? 'Inti Masalah' : 'The Core Problem' }}
+          </h3>
           <p class="text-gray-300 text-sm font-body leading-relaxed whitespace-pre-line">
             {{ currentProject.problem }}
           </p>
@@ -207,9 +309,11 @@ const navigateToProject = (id) => {
 
         <div class="glass-panel p-8 rounded-lg border border-white/10 space-y-4">
           <div class="flex items-center space-x-2 text-emerald-400 font-mono text-xs font-bold uppercase">
-            <span>● THE ARCHITECTURE (SOLUSI)</span>
+            <span>● {{ currentLocale === 'id' ? 'ARSITEKTUR & SOLUSI' : 'THE ARCHITECTURE (SOLUSI)' }}</span>
           </div>
-          <h3 class="text-xl font-heading font-bold uppercase text-white">The Engineered Solution</h3>
+          <h3 class="text-xl font-heading font-bold uppercase text-white">
+            {{ currentLocale === 'id' ? 'Solusi Rekayasa Sistem' : 'The Engineered Solution' }}
+          </h3>
           <p class="text-gray-300 text-sm font-body leading-relaxed whitespace-pre-line">
             {{ currentProject.solution }}
           </p>
@@ -221,7 +325,7 @@ const navigateToProject = (id) => {
       <section v-if="currentProject.architectureSteps.length > 0" class="glass-panel p-8 rounded-lg border border-white/10 space-y-6">
         <h2 class="text-2xl font-heading font-bold uppercase text-white tracking-wider flex items-center space-x-2">
           <span class="text-accent font-mono text-base">//</span>
-          <span>System Execution Pipeline</span>
+          <span>{{ currentLocale === 'id' ? 'Alur Eksekusi Sistem' : 'System Execution Pipeline' }}</span>
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono">
@@ -241,7 +345,7 @@ const navigateToProject = (id) => {
       <section class="glass-panel p-8 rounded-lg border border-white/10 space-y-4">
         <h2 class="text-2xl font-heading font-bold uppercase text-white tracking-wider flex items-center space-x-2">
           <span class="text-accent font-mono text-base">//</span>
-          <span>Applied Tech Stack</span>
+          <span>{{ currentLocale === 'id' ? 'Tech Stack Terapan' : 'Applied Tech Stack' }}</span>
         </h2>
         <div class="flex flex-wrap gap-2.5 pt-2">
           <span
@@ -256,7 +360,9 @@ const navigateToProject = (id) => {
 
       <!-- Cross Project Switcher -->
       <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
-        <span class="text-gray-400">EXPLORE OTHER ARSENAL SYSTEMS:</span>
+        <span class="text-gray-400">
+          {{ currentLocale === 'id' ? 'JELAJAHI SISTEM ARSENAL LAIN:' : 'EXPLORE OTHER ARSENAL SYSTEMS:' }}
+        </span>
         <div class="flex space-x-3">
           <button
             v-if="currentProject.id !== 'orion'"

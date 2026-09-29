@@ -2,8 +2,11 @@
 import { ref, computed, onMounted, nextTick } from 'vue' // Tambahin onMounted & nextTick
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLanguage } from '../../composables/useLanguage'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { currentLocale, toggleLanguage } = useLanguage()
 
 const activeCamera = ref('all')
 const activePhoto = ref(null)
@@ -15,7 +18,26 @@ const cameras = [
   { id: 'analog', label: '35mm Film Analog' },
 ]
 
-const photos = [
+const photoStories = {
+  en: {
+    1: 'Navigating the narrow alleys of Braga in the night rain, capturing neon coffee shop reflections shimmering across wet asphalt.',
+    2: 'Steamy coffee shop windowpane during an afternoon storm in Dago. Water droplets refracting streetlights into a warm, wistful spectrum.',
+    3: 'Documenting the ancient banyan canopy sheltering the 1921 heritage spring. Morning sunlight piercing through the quiet, dew-laden foliage.',
+    4: 'The evening rhythm at Bandung Railway Station as the dusk train docks. Sharp contrast between rushing passenger silhouettes and long shadows of the rails.',
+    5: 'A pour-over coffee break at the home desk set to the mellow guitar strains of Midwest Emo. Analog warmth evoking stillness and nostalgia.',
+    6: 'The stark geometry of urban concrete facades slicing across Bandung’s sky, capturing a precise, raw industrial aesthetic.'
+  },
+  id: {
+    1: 'Menyusuri gang sempit sekitaran Braga di tengah rintik hujan malam hari, menangkap pantulan lampu neon warung kopi di atas genangan aspal basah.',
+    2: 'Kaca jendela kedai kopi berembun saat badai sore di Dago. Butiran air memecah cahaya lampu jalanan menjadi spektrum warna yang hangat dan sendu.',
+    3: 'Dokumentasi kanopi pohon beringin tua yang memayungi mata air warisan 1921. Cahaya matahari pagi menerobos dedaunan lembap yang hening.',
+    4: 'Dinamika peron Stasiun Bandung saat kereta senja merapat. Kontras tinggi antara siluet penumpang bergegas dan bayangan panjang rel kereta.',
+    5: 'Momen rehat seduh kopi manual di meja kerja rumahan ditemani alunan gitar Midwest Emo. Warna analog memberikan rasa tenang dan nostalgia.',
+    6: 'Geometri fasad gedung beton perkotaan yang tegas membelah langit biru Bandung, merefleksikan estetika raw industrial yang presisi.'
+  }
+}
+
+const photoBase = [
   {
     id: 1,
     title: 'Nocturnal Bandung Alleyways',
@@ -24,7 +46,6 @@ const photos = [
     lens: 'XF 23mm F1.4 R LM WR',
     exif: 'f/1.4 • 1/125s • ISO 1600 • 23mm',
     vibe: 'Film Sim: Classic Neg',
-    story: 'Menyusuri gang sempit sekitaran Braga di tengah rintik hujan malam hari, menangkap pantulan lampu neon warung kopi di atas genangan aspal basah.',
     gradient: 'from-amber-950/40 via-red-950/30 to-zinc-950',
     heightClass: 'h-80',
     aspect: 'Urban Street Night'
@@ -37,7 +58,6 @@ const photos = [
     lens: 'Built-in 28-112mm',
     exif: 'f/2.8 • 1/60s • ISO 800 • 28mm',
     vibe: 'Lo-Fi Digital Grain',
-    story: 'Kaca jendela kedai kopi berembun saat badai sore di Dago. Butiran air memecah cahaya lampu jalanan menjadi spektrum warna yang hangat dan sendu.',
     gradient: 'from-blue-950/40 via-cyan-950/30 to-zinc-950',
     heightClass: 'h-96',
     aspect: 'Candid Low-Light'
@@ -50,7 +70,6 @@ const photos = [
     lens: 'Zuiko 50mm f/1.8',
     exif: 'f/4.0 • 1/250s • ISO 400 • Kodak UltraMax',
     vibe: 'Chemical Film Grain',
-    story: 'Dokumentasi kanopi pohon beringin tua yang memayungi mata air warisan 1921. Cahaya matahari pagi menerobos dedaunan lembap yang hening.',
     gradient: 'from-emerald-950/40 via-teal-950/30 to-zinc-950',
     heightClass: 'h-72',
     aspect: 'Environmental Documentary'
@@ -63,7 +82,6 @@ const photos = [
     lens: 'XF 35mm F2 R WR',
     exif: 'f/2.0 • 1/500s • ISO 320 • 35mm',
     vibe: 'Film Sim: Acros B&W',
-    story: 'Dinamika peron Stasiun Bandung saat kereta senja merapat. Kontras tinggi antara siluet penumpang bergegas dan bayangan panjang rel kereta.',
     gradient: 'from-zinc-800/40 via-zinc-900/30 to-black',
     heightClass: 'h-96',
     aspect: 'Monochrome Street'
@@ -76,7 +94,6 @@ const photos = [
     lens: '40mm f/1.7',
     exif: 'f/2.8 • 1/60s • ISO 200 • Fujicolor C200',
     vibe: 'Warm Vintage Cast',
-    story: 'Momen rehat seduh kopi manual di meja kerja rumahan ditemani alunan gitar Midwest Emo. Warna analog memberikan rasa tenang dan nostalgia.',
     gradient: 'from-orange-950/40 via-amber-950/30 to-zinc-950',
     heightClass: 'h-72',
     aspect: 'Daily Narrative'
@@ -89,16 +106,23 @@ const photos = [
     lens: 'Built-in Zoom',
     exif: 'f/3.5 • 1/1000s • ISO 100 • 35mm',
     vibe: 'Hard Contrast Punch',
-    story: 'Geometri fasad gedung beton perkotaan yang tegas membelah langit biru Bandung, merefleksikan estetika raw industrial yang presisi.',
     gradient: 'from-stone-900/40 via-zinc-950/30 to-black',
     heightClass: 'h-80',
     aspect: 'Architectural Framing'
   }
 ]
 
+const photos = computed(() => {
+  const stories = photoStories[currentLocale.value] || photoStories.en
+  return photoBase.map((p) => ({
+    ...p,
+    story: stories[p.id] || stories[1]
+  }))
+})
+
 const filteredPhotos = computed(() => {
-  if (activeCamera.value === 'all') return photos
-  return photos.filter((p) => p.cameraType === activeCamera.value)
+  if (activeCamera.value === 'all') return photos.value
+  return photos.value.filter((p) => p.cameraType === activeCamera.value)
 })
 
 onMounted(() => {
@@ -135,21 +159,39 @@ onMounted(() => {
         </h2>
       </div>
       
-      <!-- Filter Tabs -->
-      <div class="flex flex-wrap gap-2 mt-4 md:mt-0 font-mono text-xs">
+      <!-- Header Actions: Filters & In-Section Story Lang Switch -->
+      <div class="flex flex-wrap items-center gap-3 mt-4 md:mt-0 font-mono text-xs">
+        <!-- Minimalist In-Section Story Translate Toggle -->
         <button
-          v-for="cam in cameras"
-          :key="cam.id"
-          @click="activeCamera = cam.id"
-          :class="[
-            'px-3.5 py-1.5 rounded transition-all',
-            activeCamera === cam.id
-              ? 'bg-accent text-white font-bold shadow-accent-glow'
-              : 'bg-white/[0.04] text-gray-400 hover:text-white border border-white/5'
-          ]"
+          @click="toggleLanguage"
+          class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded bg-white/[0.04] hover:bg-accent/15 border border-white/10 hover:border-accent text-gray-300 hover:text-white font-mono text-[11px] tracking-wider transition-all duration-200 cursor-pointer group"
+          :title="currentLocale === 'en' ? 'Ganti cerita foto ke Bahasa Indonesia' : 'Switch photo stories to English'"
         >
-          {{ cam.label }}
+          <span class="text-accent text-[11px] group-hover:rotate-12 transition-transform">🌐</span>
+          <span class="text-muted text-[10px]">STORY:</span>
+          <span :class="currentLocale === 'id' ? 'text-accent font-bold' : 'text-gray-400'">ID</span>
+          <span class="text-white/20">/</span>
+          <span :class="currentLocale === 'en' ? 'text-accent font-bold' : 'text-gray-400'">EN</span>
         </button>
+
+        <div class="h-4 w-[1px] bg-white/15 hidden sm:block"></div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="cam in cameras"
+            :key="cam.id"
+            @click="activeCamera = cam.id"
+            :class="[
+              'px-3.5 py-1.5 rounded transition-all cursor-pointer',
+              activeCamera === cam.id
+                ? 'bg-accent text-white font-bold shadow-accent-glow'
+                : 'bg-white/[0.04] text-gray-400 hover:text-white border border-white/5'
+            ]"
+          >
+            {{ cam.label }}
+          </button>
+        </div>
       </div>
     </div>
 
@@ -183,7 +225,7 @@ onMounted(() => {
           </p>
           <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[11px] font-mono text-muted">
             <span class="text-gray-300">{{ photo.exif }}</span>
-            <span class="text-accent font-bold">[Inspect Full ↗]</span>
+            <span class="text-accent font-bold">[{{ currentLocale === 'id' ? 'Buka Detail' : 'Inspect Full' }} ↗]</span>
           </div>
         </div>
 
@@ -215,9 +257,9 @@ onMounted(() => {
           </div>
           <button
             @click="activePhoto = null"
-            class="text-gray-400 hover:text-white font-mono text-sm px-3 py-1 bg-white/10 rounded"
+            class="text-gray-400 hover:text-white font-mono text-sm px-3 py-1 bg-white/10 rounded cursor-pointer"
           >
-            ✕ Close
+            ✕ {{ currentLocale === 'id' ? 'Tutup' : 'Close' }}
           </button>
         </div>
 

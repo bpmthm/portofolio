@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, nextTick } from 'vue' // Tambahin onMounted & nextTick
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { t } from '../../composables/useLanguage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -109,7 +110,7 @@ onMounted(() => {
                 Lutfi Candaka KUSUMAH
               </h3>
               <p class="text-xs font-mono text-gray-300">
-                Lulusan D3 Teknik Informatika • Network & Systems Enthusiast • Art & Local Cultures Aficionado
+                {{ t('about.photoSub') }}
               </p>
             </div>
           </div>
@@ -175,10 +176,10 @@ onMounted(() => {
             
             <div v-if="activeTab === 'bio'" class="space-y-4">
               <p class="text-gray-300">
-                <span class="text-accent font-bold">➜</span> Halo! Gue <span class="text-white font-semibold">Lutfi Candaka KUSUMAH</span>, akrab dipanggil <span class="text-accent font-semibold">Lutfi/Pi</span>. Lulusan D3 Teknik Informatika yang sehari-hari ngoprek backend, kadang server, dan jaringan.
+                <span class="text-accent font-bold">➜</span> {{ t('about.bioGreeting') }}<span class="text-white font-semibold">Lutfi Candaka KUSUMAH</span>{{ t('about.bioNicknamePrefix') }}<span class="text-accent font-semibold">Lutfi/Pi</span>{{ t('about.bioDesc1') }}
               </p>
               <p class="text-gray-400">
-                <span class="text-accent font-bold">➜</span> Comfort zone gue ada di terminal <span class="text-white font-medium">Fedora Linux</span>, ngeracik arsitektur sistem, dokumentasi proyek, main musik, motret sudut kota Bandung, dan ngeracik kopi di rumah.
+                <span class="text-accent font-bold">➜</span> {{ t('about.bioComfort') }}<span class="text-white font-medium">Fedora Linux</span>{{ t('about.bioDesc2') }}
               </p>
               <div class="pt-2 border-t border-white/5 flex items-center space-x-3 text-xs text-muted">
                 <span class="text-emerald-400">✓ Systems Mindset</span>
@@ -206,7 +207,7 @@ onMounted(() => {
                 "Simplicity is prerequisite for reliability." — Edsger W. Dijkstra
               </blockquote>
               <p class="text-gray-400 text-xs leading-normal">
-                Bagi gue, backend yang hebat bukan yang paling rumit, melainkan yang paling terprediksi, terdokumentasi, dan mampu menangani failure secara elegan. Selalu mengutamakan zero-latency bottleneck dan auditability.
+                {{ t('about.philosophyText') }}
               </p>
             </div>
 
