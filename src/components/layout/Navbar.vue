@@ -218,7 +218,7 @@ onUnmounted(() => {
             @click="toggleTheme"
             class="px-3 py-1 bg-paper-alt dark:bg-white/10 hover:bg-accent/20 border border-paper-border dark:border-white/15 hover:border-accent text-accent font-mono text-xs font-bold rounded flex items-center space-x-1.5 transition-colors cursor-pointer"
           >
-            <span>SWITCH:</span>
+            <span>MODE:</span>
             <span class="underline decoration-accent font-extrabold">{{ theme === 'dark' ? 'DARK' : 'LIGHT' }}</span>
           </button>
         </div>

@@ -202,22 +202,22 @@ onMounted(() => {
           <div class="p-6 font-mono text-sm leading-relaxed min-h-[260px] bg-paper dark:bg-darker/90">
             
             <div v-if="activeTab === 'bio'" class="space-y-4">
-              <p class="text-gray-300">
-                <span class="text-accent font-bold">➜</span> {{ t('about.bioGreeting') }}<span class="text-white font-semibold">Lutfi Candaka KUSUMAH</span>{{ t('about.bioNicknamePrefix') }}<span class="text-accent font-semibold">Lutfi/Pi</span>{{ t('about.bioDesc1') }}
+              <p class="text-ink dark:text-gray-300">
+                <span class="text-accent font-bold">➜</span> {{ t('about.bioGreeting') }}<span class="text-ink dark:text-white font-semibold">Lutfi Candaka KUSUMAH</span>{{ t('about.bioNicknamePrefix') }}<span class="text-accent font-semibold">Lutfi/Pi</span>{{ t('about.bioDesc1') }}
               </p>
-              <p class="text-gray-400">
-                <span class="text-accent font-bold">➜</span> {{ t('about.bioComfort') }}<span class="text-white font-medium">Fedora Linux</span>{{ t('about.bioDesc2') }}
+              <p class="text-ink-muted dark:text-gray-400">
+                <span class="text-accent font-bold">➜</span> {{ t('about.bioComfort') }}<span class="text-ink dark:text-white font-medium">Fedora Linux</span>{{ t('about.bioDesc2') }}
               </p>
-              <div class="pt-2 border-t border-white/5 flex items-center space-x-3 text-xs text-muted">
-                <span class="text-emerald-400">✓ Systems Mindset</span>
-                <span class="text-emerald-400">✓ Observability & Docs</span>
-                <span class="text-emerald-400">✓ Clean Modular Code</span>
+              <div class="pt-2 border-t border-paper-border dark:border-white/5 flex items-center space-x-3 text-xs text-ink-muted dark:text-muted">
+                <span class="text-emerald-600 dark:text-emerald-400 font-medium">✓ Systems Mindset</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-medium">✓ Observability & Docs</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-medium">✓ Clean Modular Code</span>
               </div>
             </div>
 
             <div v-if="activeTab === 'specs'" class="space-y-1.5 text-xs">
-              <p><span class="text-accent font-bold">lutfi@fedora-operator</span>:~$ neofetch</p>
-              <div class="grid grid-cols-2 gap-x-4 gap-y-1 pt-2 text-gray-300">
+              <p class="text-ink dark:text-gray-300"><span class="text-accent font-bold">lutfi@fedora-operator</span>:~$ neofetch</p>
+              <div class="grid grid-cols-2 gap-x-4 gap-y-1 pt-2 text-ink dark:text-gray-300">
                 <div><span class="text-accent">OS:</span> Fedora Linux 41 (Workstation)</div>
                 <div><span class="text-accent">Host:</span> Custom Dev Machine</div>
                 <div><span class="text-accent">Kernel:</span> 6.12.x-x86_64</div>
@@ -230,37 +230,37 @@ onMounted(() => {
             </div>
 
             <div v-if="activeTab === 'philosophy'" class="space-y-3">
-              <blockquote class="border-l-2 border-accent pl-4 italic text-gray-300">
+              <blockquote class="border-l-2 border-accent pl-4 italic text-ink dark:text-gray-300">
                 "Simplicity is prerequisite for reliability." — Edsger W. Dijkstra
               </blockquote>
-              <p class="text-gray-400 text-xs leading-normal">
+              <p class="text-ink-muted dark:text-gray-400 text-xs leading-normal">
                 {{ t('about.philosophyText') }}
               </p>
             </div>
 
-            <div v-if="activeTab === 'edu'" class="space-y-4 text-xs text-gray-300">
+            <div v-if="activeTab === 'edu'" class="space-y-4 text-xs text-ink dark:text-gray-300">
               <p><span class="text-accent font-bold">lutfi@fedora-operator</span>:~/education$ tree .</p>
-              <div class="pl-2 border-l border-white/10 space-y-3">
+              <div class="pl-2 border-l border-paper-border dark:border-white/10 space-y-3">
                 <div>
-                  <div class="text-white font-bold">├── Universitas Logistik dan Bisnis Internasional (ULBI)</div>
-                  <div class="pl-4 text-gray-400">│   ├── D3 Teknik Informatika (Informatics)</div>
-                  <div class="pl-4 text-gray-400">│   └── [Focus: Backend, Networking, System Admin]</div>
+                  <div class="text-ink dark:text-white font-bold">├── Universitas Logistik dan Bisnis Internasional (ULBI)</div>
+                  <div class="pl-4 text-ink-muted dark:text-gray-400">│   ├── D3 Teknik Informatika (Informatics)</div>
+                  <div class="pl-4 text-ink-muted dark:text-gray-400">│   └── [Focus: Backend, Networking, System Admin]</div>
                 </div>
                 <div>
-                  <div class="text-white font-bold">└── SMKN 2 Bandung</div>
-                  <div class="pl-4 text-gray-400">    ├── Teknik Komputer dan Jaringan (TKJ)</div>
-                  <div class="pl-4 text-gray-400">    └── [Focus: Cisco, MikroTik, Linux Server]</div>
+                  <div class="text-ink dark:text-white font-bold">└── SMKN 2 Bandung</div>
+                  <div class="pl-4 text-ink-muted dark:text-gray-400">    ├── Teknik Komputer dan Jaringan (TKJ)</div>
+                  <div class="pl-4 text-ink-muted dark:text-gray-400">    └── [Focus: Cisco, MikroTik, Linux Server]</div>
                 </div>
               </div>
             </div>
 
-            <div v-if="activeTab === 'org'" class="space-y-3 text-xs text-gray-300">
+            <div v-if="activeTab === 'org'" class="space-y-3 text-xs text-ink dark:text-gray-300">
               <p><span class="text-accent font-bold">lutfi@fedora-operator</span>:~/organizations$ cat underdog.md</p>
-              <div class="p-4 bg-black/50 border border-white/5 rounded space-y-2 text-gray-400 font-sans">
-                <h4 class="text-white font-bold text-sm">UNDERDOG</h4>
-                <p>Role: <span class="text-emerald-400 font-semibold">Visual Identity & Creative Lead</span></p>
-                <div class="pt-2 border-t border-white/5">
-                  <p class="font-bold text-gray-300 mb-1">Core contributions:</p>
+              <div class="p-4 bg-paper-alt dark:bg-black/50 border border-paper-border dark:border-white/5 rounded space-y-2 text-ink-muted dark:text-gray-400 font-sans">
+                <h4 class="text-ink dark:text-white font-bold text-sm">UNDERDOG</h4>
+                <p>Role: <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Visual Identity & Creative Lead</span></p>
+                <div class="pt-2 border-t border-paper-border dark:border-white/5">
+                  <p class="font-bold text-ink dark:text-gray-300 mb-1">Core contributions:</p>
                   <ul class="list-disc pl-4 space-y-1">
                     <li>Branding, typography, and visual design.</li>
                     <li>Merchandise design and street-culture aesthetic direction.</li>
@@ -270,26 +270,26 @@ onMounted(() => {
               </div>
             </div>
 
-            <div v-if="activeTab === 'certs'" class="space-y-3 text-xs text-gray-300">
+            <div v-if="activeTab === 'certs'" class="space-y-3 text-xs text-ink dark:text-gray-300">
               <p><span class="text-accent font-bold">lutfi@fedora-operator</span>:~/certificates$ ls -la</p>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
-                <a href="/certs/bnsp-cloud.pdf" target="_blank" class="p-3 bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-accent rounded transition-all group flex flex-col justify-between h-full">
-                  <span class="text-white font-bold group-hover:text-accent mb-1 truncate block">BNSP Cloud Computing</span>
-                  <span class="text-[10px] text-gray-500 flex items-center justify-between mt-2">
+                <a href="/certs/bnsp-cloud.pdf" target="_blank" class="p-3 bg-paper-alt dark:bg-white/[0.02] hover:bg-paper dark:hover:bg-white/[0.05] border border-paper-border dark:border-white/10 hover:border-accent rounded transition-all group flex flex-col justify-between h-full">
+                  <span class="text-ink dark:text-white font-bold group-hover:text-accent mb-1 truncate block">BNSP Cloud Computing</span>
+                  <span class="text-[10px] text-ink-muted dark:text-gray-500 flex items-center justify-between mt-2">
                     <span>[ VIEW PDF ]</span>
                     <span class="text-accent">↗</span>
                   </span>
                 </a>
-                <a href="/certs/cisco-ccna.pdf" target="_blank" class="p-3 bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-accent rounded transition-all group flex flex-col justify-between h-full">
-                  <span class="text-white font-bold group-hover:text-accent mb-1 truncate block">Cisco CCNA (NetAcad)</span>
-                  <span class="text-[10px] text-gray-500 flex items-center justify-between mt-2">
+                <a href="/certs/cisco-ccna.pdf" target="_blank" class="p-3 bg-paper-alt dark:bg-white/[0.02] hover:bg-paper dark:hover:bg-white/[0.05] border border-paper-border dark:border-white/10 hover:border-accent rounded transition-all group flex flex-col justify-between h-full">
+                  <span class="text-ink dark:text-white font-bold group-hover:text-accent mb-1 truncate block">Cisco CCNA (NetAcad)</span>
+                  <span class="text-[10px] text-ink-muted dark:text-gray-500 flex items-center justify-between mt-2">
                     <span>[ VIEW PDF ]</span>
                     <span class="text-accent">↗</span>
                   </span>
                 </a>
-                <a href="/certs/mikrotik-mtcna.pdf" target="_blank" class="p-3 bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-accent rounded transition-all group flex flex-col justify-between h-full">
-                  <span class="text-white font-bold group-hover:text-accent mb-1 truncate block">MikroTik MTCNA</span>
-                  <span class="text-[10px] text-gray-500 flex items-center justify-between mt-2">
+                <a href="/certs/mikrotik-mtcna.pdf" target="_blank" class="p-3 bg-paper-alt dark:bg-white/[0.02] hover:bg-paper dark:hover:bg-white/[0.05] border border-paper-border dark:border-white/10 hover:border-accent rounded transition-all group flex flex-col justify-between h-full">
+                  <span class="text-ink dark:text-white font-bold group-hover:text-accent mb-1 truncate block">MikroTik MTCNA</span>
+                  <span class="text-[10px] text-ink-muted dark:text-gray-500 flex items-center justify-between mt-2">
                     <span>[ VIEW PDF ]</span>
                     <span class="text-accent">↗</span>
                   </span>
@@ -302,7 +302,7 @@ onMounted(() => {
 
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <h4 class="font-mono text-xs uppercase tracking-widest text-gray-400 font-bold">
+            <h4 class="font-mono text-xs uppercase tracking-widest text-ink-muted dark:text-gray-400 font-bold">
               // ARSENAL & PROFICIENCIES
             </h4>
             
@@ -313,7 +313,7 @@ onMounted(() => {
                 @click="activeFilter = cat.id"
                 :class="[
                   'px-2.5 py-1 rounded transition-colors',
-                  activeFilter === cat.id ? 'bg-white/20 text-white font-bold border border-accent' : 'bg-white/[0.02] text-gray-400 hover:text-white border border-white/5'
+                  activeFilter === cat.id ? 'bg-accent text-white font-bold border border-accent' : 'bg-paper-alt dark:bg-white/[0.02] text-ink-muted dark:text-gray-400 hover:text-ink dark:hover:text-white border border-paper-border dark:border-white/5'
                 ]"
               >
                 {{ cat.label }}
@@ -325,11 +325,11 @@ onMounted(() => {
             <div
               v-for="tech in filteredTech"
               :key="tech.name"
-              class="px-3 py-1.5 rounded bg-white/[0.03] hover:bg-accent/15 border border-white/10 hover:border-accent transition-all duration-200 flex items-center space-x-2 group cursor-default"
+              class="px-3 py-1.5 rounded bg-paper-alt dark:bg-white/[0.03] hover:bg-accent/15 border border-paper-border dark:border-white/10 hover:border-accent transition-all duration-200 flex items-center space-x-2 group cursor-default"
             >
               <span class="w-1.5 h-1.5 rounded-full bg-accent group-hover:scale-125 transition-transform"></span>
-              <span class="font-mono text-xs text-light group-hover:text-white">{{ tech.name }}</span>
-              <span class="text-[10px] font-mono text-muted group-hover:text-accent font-light">({{ tech.level }})</span>
+              <span class="font-mono text-xs text-ink dark:text-light group-hover:text-accent">{{ tech.name }}</span>
+              <span class="text-[10px] font-mono text-ink-muted dark:text-muted group-hover:text-accent font-light">({{ tech.level }})</span>
             </div>
           </div>
         </div>

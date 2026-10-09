@@ -30,9 +30,12 @@ html.lenis-smooth {
    BASE & TYPOGRAPHY
    =================================================== */
 body {
-  @apply bg-dark text-light font-body antialiased;
+  @apply bg-paper text-ink font-body antialiased transition-colors duration-300;
   overflow-x: hidden;
-  background-color: #0c0c0e;
+}
+
+.dark body {
+  @apply bg-dark text-light;
 }
 
 /* Custom Sleek Scrollbar */
@@ -41,12 +44,20 @@ body {
 }
 
 ::-webkit-scrollbar-track {
+  background: #EBE9E1;
+}
+
+.dark ::-webkit-scrollbar-track {
   background: #0c0c0e;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #CFCBC0;
   border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #27272a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -81,14 +92,23 @@ body {
 /* Ambient Cyber Grid */
 .cyber-grid {
   background-size: 32px 32px;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+}
+
+.dark .cyber-grid {
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
 }
 
 /* Glassmorphic Panel */
 .glass-panel {
-  background: rgba(20, 20, 23, 0.7);
+  background: rgba(225, 223, 214, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(207, 203, 192, 0.8);
+}
+
+.dark .glass-panel {
+  background: rgba(20, 20, 23, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -141,5 +161,9 @@ body {
   background-size: 100% 4px;
   z-index: 10;
   pointer-events: none;
+  opacity: 0.05;
+}
+
+.dark .scanline-card::after {
   opacity: 0.3;
 }
