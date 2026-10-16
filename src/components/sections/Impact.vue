@@ -136,7 +136,7 @@ onMounted(() => {
             COORD: 6°52'42.1"S 107°36'18.4"E • BANDUNG
           </div>
           <button @click="openModal" class="px-3 py-1.5 bg-accent hover:bg-paper-alt dark:hover:bg-white text-white hover:text-ink dark:hover:text-black font-mono text-[11px] font-bold tracking-widest rounded transition-colors uppercase">
-            [ QUICK PREVIEW ↗ ]
+            [ SHORT PREVIEW ↗ ]
           </button>
         </div>
       </div>
@@ -198,7 +198,7 @@ onMounted(() => {
           <div class="bg-paper-alt dark:bg-black/80 rounded border border-paper-border dark:border-white/15 p-6 font-mono text-xs space-y-4 relative scanline-card shadow-lg dark:shadow-none">
             <div class="flex justify-between items-center text-ink-muted dark:text-gray-400 pb-3 border-b border-paper-border dark:border-white/10">
               <span class="text-accent font-bold">{{ impactTranslations[currentLocale]?.roleTitle }}</span>
-              <span>TJILEBAK ARCHIVE</span>
+              <span>TJIBADAK ARCHIVE</span>
             </div>
             
             <div class="space-y-2.5 text-ink dark:text-gray-300">
@@ -269,10 +269,7 @@ onMounted(() => {
                     <p class="text-accent mb-2">> INITIATING VISUAL ARCHIVE...</p>
                     <p class="text-emerald-600 dark:text-emerald-400 font-bold mb-4">> GROUND ZERO: GEDONG CAI TJIBADAK</p>
                     <div class="space-y-1 text-ink dark:text-gray-500">
-                      <p>0x001: SCANNING ECOLOGICAL ZONE...</p>
-                      <p>0x002: DEPLOYING TREE PLANTING PROTOCOL [DONE]</p>
-                      <p>0x003: INITIATING YOUTH WORKSHOP [DONE]</p>
-                      <p>0x004: DIGITAL CAMPAIGN ONLINE.</p>
+                      
                       <br>
                       <p class="text-ink-muted dark:text-gray-400 text-xs text-center border border-paper-border dark:border-white/10 p-8 mt-4 rounded bg-paper dark:bg-white/[0.02]">
                         [ MEDIA ATTACHMENT ]<br>NO PREVIEW AVAILABLE
