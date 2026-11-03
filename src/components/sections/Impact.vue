@@ -46,6 +46,15 @@ const impactTranslations = {
     action3Title: '3. YOUTH WORKSHOPS:',
     action3Desc: 'Hosting watershed sanitation and water conservation education with local youth.',
     quote: '"Water is not merely a commodity, but a civilization heritage that we must steward together."',
+    modalP1Before: 'As ',
+    modalP1Role: 'Co-founder of TJIBADAK1921',
+    modalP1After: ', this initiative revitalizes the riparian zone of the historic Gedong Cai Tjibadak spring built in 1921.',
+    modalP2Before: 'The campaign couples field operations such as ',
+    modalP2Action1: 'tree planting',
+    modalP2Mid: ' and ',
+    modalP2Action2: 'conservation workshops',
+    modalP2After: ' with digital advocacy tactics to instill civic awareness among urban youth on municipal groundwater resilience.',
+    modalQuote: '"Connecting history, ecology, and digital engineering to revitalize Bandung\'s civilizational water heritage."',
   },
   id: {
     descTag: 'NARASI KOMUNITAS',
@@ -65,6 +74,15 @@ const impactTranslations = {
     action3Title: '3. YOUTH WORKSHOPS:',
     action3Desc: 'Mengadakan edukasi sanitasi DAS dan konservasi air bersama pemuda lokal.',
     quote: '"Air bukan sekadar komoditas, tapi warisan peradaban kota yang harus kita rawat bersama."',
+    modalP1Before: 'Sebagai ',
+    modalP1Role: 'Co-founder TJIBADAK1921',
+    modalP1After: ', inisiatif ini merestorasi area sempadan mata air bersejarah Gedong Cai Tjibadak yang dibangun pada tahun 1921.',
+    modalP2Before: 'Kampanye ini memadukan aksi di lapangan seperti ',
+    modalP2Action1: 'penanaman pohon',
+    modalP2Mid: ' dan ',
+    modalP2Action2: 'edukasi konservasi',
+    modalP2After: ' dengan taktik advokasi digital untuk membangun kesadaran kritis generasi muda mengenai krisis air tanah perkotaan.',
+    modalQuote: '"Mengkoneksikan sejarah, ekologi, dan teknologi digital untuk merevitalisasi warisan air peradaban Bandung."',
   }
 }
 
@@ -290,13 +308,13 @@ onMounted(() => {
                     
                     <div class="space-y-4 font-sans text-sm text-ink dark:text-gray-300 leading-relaxed">
                       <p>
-                        Sebagai <span class="text-ink dark:text-white font-bold">Co-founder TJIBADAK1921</span>, inisiatif ini merestorasi area sempadan mata air bersejarah Gedong Cai Tjibadak yang dibangun pada tahun 1921.
+                        {{ impactTranslations[currentLocale]?.modalP1Before }}<span class="text-ink dark:text-white font-bold">{{ impactTranslations[currentLocale]?.modalP1Role }}</span>{{ impactTranslations[currentLocale]?.modalP1After }}
                       </p>
                       <p>
-                        Kampanye ini memadukan aksi di lapangan seperti <span class="text-accent">penanaman pohon</span> dan <span class="text-emerald-600 dark:text-emerald-400">edukasi konservasi</span> dengan taktik advokasi digital untuk membangun kesadaran kritis generasi muda mengenai krisis air tanah perkotaan.
+                        {{ impactTranslations[currentLocale]?.modalP2Before }}<span class="text-accent">{{ impactTranslations[currentLocale]?.modalP2Action1 }}</span>{{ impactTranslations[currentLocale]?.modalP2Mid }}<span class="text-emerald-600 dark:text-emerald-400">{{ impactTranslations[currentLocale]?.modalP2Action2 }}</span>{{ impactTranslations[currentLocale]?.modalP2After }}
                       </p>
                       <blockquote class="pl-4 border-l-2 border-accent text-ink-muted dark:text-gray-400 italic">
-                        "Mengkoneksikan sejarah, ekologi, dan teknologi digital untuk merevitalisasi warisan air peradaban Bandung."
+                        {{ impactTranslations[currentLocale]?.modalQuote }}
                       </blockquote>
                     </div>
                   </div>

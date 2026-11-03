@@ -2,10 +2,12 @@
 import { inject, onMounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLanguage } from '../../composables/useLanguage'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const lenis = inject('lenis', null)
+const { t } = useLanguage()
 
 const scrollToSection = (target) => {
   if (lenis?.value) {
@@ -110,7 +112,7 @@ onMounted(() => {
       <div class="hero-chip inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-paper-alt dark:bg-white/[0.04] border border-paper-border dark:border-white/10 backdrop-blur-md mb-8 animate-float">
         <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
         <span class="font-mono text-xs uppercase tracking-wider text-ink dark:text-gray-300">
-          Full-Stack Developer & Network Engineer
+          {{ t('hero.role') }}
         </span>
       </div>
 
@@ -126,7 +128,7 @@ onMounted(() => {
 
       <!-- Subtitle Tagline -->
       <p class="hero-subtitle text-lg md:text-2xl font-body text-ink-muted dark:text-gray-300 max-w-3xl mb-8 font-light leading-relaxed">
-        Building robust <span class="text-ink dark:text-white font-bold dark:font-medium">backend architectures</span>, high-performance <span class="text-ink dark:text-white font-bold dark:font-medium">network systems</span>, and capturing urban narratives through the lens.
+        {{ t('hero.subtitleBefore') }}<span class="text-ink dark:text-white font-bold dark:font-medium">{{ t('hero.backendArch') }}</span>{{ t('hero.subtitleMid') }}<span class="text-ink dark:text-white font-bold dark:font-medium">{{ t('hero.networkSys') }}</span>{{ t('hero.subtitleAfter') }}
       </p>
 
       <!-- Terminal Command Snippet Box -->
@@ -141,10 +143,10 @@ onMounted(() => {
           <span class="text-[10px] text-accent font-bold">BASH 5.2</span>
         </div>
         <div class="space-y-1 text-ink dark:text-gray-300">
-          <p><span class="text-accent font-bold">➜</span> <span class="text-emerald-600 dark:text-emerald-400 font-semibold">whoami</span></p>
-          <p class="text-ink-muted dark:text-gray-400 pl-4">Lutfi • D3 Informatics • Backend & System Builder</p>
-          <p><span class="text-accent font-bold">➜</span> <span class="text-emerald-600 dark:text-emerald-400 font-semibold">current_focus</span></p>
-          <p class="text-ink-muted dark:text-gray-400 pl-4">Hybrid RAG Search, Distributed Systems, IoT Architecture</p>
+          <p><span class="text-accent font-bold">➜</span> <span class="text-emerald-600 dark:text-emerald-400 font-semibold">{{ t('hero.whoamiLabel') }}</span></p>
+          <p class="text-ink-muted dark:text-gray-400 pl-4">{{ t('hero.whoamiVal') }}</p>
+          <p><span class="text-accent font-bold">➜</span> <span class="text-emerald-600 dark:text-emerald-400 font-semibold">{{ t('hero.focusLabel') }}</span></p>
+          <p class="text-ink-muted dark:text-gray-400 pl-4">{{ t('hero.focusVal') }}</p>
         </div>
       </div>
 
@@ -155,7 +157,7 @@ onMounted(() => {
             @click="scrollToSection('#projects')"
             class="w-full sm:w-auto px-8 py-4 bg-accent hover:bg-accent-hover text-white uppercase font-heading font-bold text-lg tracking-wider transition-all duration-300 shadow-accent-glow hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2 group cursor-pointer"
           >
-            <span>Explore Arsenal</span>
+            <span>{{ t('hero.exploreBtn') }}</span>
             <span class="transform group-hover:translate-x-1 transition-transform">&rarr;</span>
           </button>
 
@@ -163,7 +165,7 @@ onMounted(() => {
             @click="scrollToSection('#about')"
             class="w-full sm:w-auto px-8 py-4 bg-paper-alt dark:bg-white/[0.04] hover:bg-paper dark:hover:bg-white/[0.08] border border-paper-border dark:border-white/15 hover:border-accent text-ink dark:text-light uppercase font-heading font-bold text-lg tracking-wider transition-all duration-300 cursor-pointer"
           >
-            The Operator Bio
+            {{ t('hero.bioBtn') }}
           </button>
         </div>
 
@@ -195,22 +197,22 @@ onMounted(() => {
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl pt-6 border-t border-paper-border dark:border-white/10 font-mono">
         <div class="hero-stats p-3 text-center">
           <div class="text-2xl md:text-3xl font-heading font-bold text-accent">4+</div>
-          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">Years Dev & Infra</div>
+          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">{{ t('hero.stats.years') }}</div>
         </div>
         <div class="hero-stats p-3 text-center">
           <div class="text-2xl md:text-3xl font-heading font-bold text-accent">15+</div>
-          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">Systems Shipped</div>
+          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">{{ t('hero.stats.systems') }}</div>
         </div>
         <div class="hero-stats p-3 text-center">
           <div class="text-2xl md:text-3xl font-heading font-bold text-accent">99.9%</div>
-          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">Target Reliability</div>
+          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">{{ t('hero.stats.reliability') }}</div>
         </div>
         <div class="hero-stats p-3 text-center">
           <div class="text-2xl md:text-3xl font-heading font-bold text-accent">FEDORA</div>
-          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">Linux Workstation</div>
+          <div class="text-xs text-ink-muted dark:text-gray-400 uppercase tracking-wider">{{ t('hero.stats.workstation') }}</div>
         </div>
       </div>
 
     </div>
   </section>
-</template>WEB20260249GXY
+</template>
