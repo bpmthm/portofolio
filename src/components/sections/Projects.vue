@@ -21,64 +21,90 @@ const projectTranslations = {
     closePreview: 'Close Preview',
     openFullCaseStudy: 'Open Full Case Study',
     orion: {
-      description: 'Hybrid RAG architecture combining Parallel Search (BM25 keyword search + Cosine Dense Vector Similarity) via ChromaDB with Cross-Encoder re-ranking and Human-in-the-Loop evaluation.',
+      title: 'ORION',
+      subtitle: 'Enterprise Knowledge Retrieval & Parallel RAG Microservices',
+      badge: 'MICROSERVICES RAG & PARALLEL SEARCH',
+      metric: 'Zero Hallucination • 1.39s E2E Latency',
+      description: 'Distributed microservices architecture combining asynchronous Parallel Search (BM25 lexical + ChromaDB dense vector search) fused via Reciprocal Rank Fusion (RRF) with Groq Llama 3.1, divisional RBAC, and Human-in-the-Loop governance.',
       highlights: [
-        'Parallel Search (BM25 + Dense Embeddings)',
-        'Cross-Encoder Re-Ranking Pipeline',
-        'Human-in-the-loop Active Verification',
-        'FastAPI Microservice + Async Streaming'
+        'Asynchronous Parallel Search (BM25 Lexical + ChromaDB Cosine Semantic)',
+        'Reciprocal Rank Fusion (RRF) Hybrid Re-ranking Algorithm',
+        'Distributed 3-Tier Microservices (Vue 3 + CI4 Gateway + FastAPI Engine)',
+        'Zero Data Leakage RBAC & Smart Page-Level Source Citation',
+        'Human-in-the-Loop (HITL) Fallback & RLHF Feedback Loop'
       ]
     },
     chitose: {
-      description: 'Mission-critical Dual-Database architecture bridging SAP SQL Server ERP and modern MySQL data warehouse with SSO CodeIgniter 4 for procurement digitalization.',
+      subtitle: 'Supplier Performance Evaluation (SPE) & ERP Integration',
+      badge: 'MULTI-TIER DUAL-DB & SSO',
+      metric: 'Zero SAP Lock • 4 Roles Unified',
+      description: 'Multi-tier architecture bridging production SAP SQL Server (read-only logistical extraction) with local transactional MySQL 8.0, integrated with enterprise Single Sign-On (SSO) and modular multi-criteria scoring.',
       highlights: [
-        'Dual-Database Architecture (SAP SQL Server & MySQL)',
-        'Single Sign-On (SSO) Centralized Authentication',
-        'Automated Multi-Criteria Supplier Grading Matrix',
-        'Role-based Access Control & Audit Trail'
+        'Dual-Database Decoupling (SAP SQL Server & MySQL Data Warehouse)',
+        'Centralized HRIS SSO & Role-Based Dynamic DOM Encapsulation (QC, PPIC, PCH, HSE)',
+        'User-Driven On-Demand Vendor Synchronization Pipeline',
+        'Modular Multi-Criteria Performance Scoring & Historical KPI Dashboard'
       ]
     },
     'mbg-iot': {
-      description: 'Institutional food waste telemetry system with IoT scale sensors (ESP32) analyzing historical data trends via Weighted Moving Average (WMA) for portion forecasting and formulating nutritious menu recommendations with Generative AI.',
+      title: 'MBG Decision Support System',
+      subtitle: 'Nutrition Planning & Time-Series Food Waste Forecasting',
+      badge: 'TIME-SERIES (WMA) & GEN-AI',
+      metric: '5 Nutrition Slots • Early Warning Alert',
+      description: 'Web-based Decision Support System (DSS) digitalizing weekly menu planning via 5-slot "Isi Piringku" standard, leveraging Weighted Moving Average (WMA n=3) to flag waste trends into "Zona Merah" alerts and Google Gemini AI for adaptive recipe formulation.',
       highlights: [
-        'IoT Sensor Telemetry (ESP32 Load Cells + MQTT Broker)',
-        'Weighted Moving Average (WMA) for Waste Forecasting & Portion Calibration',
-        'Generative AI Menu Builder (Filtering Ingredients with High Waste Trends)',
-        'Real-time Dashboard & Raw Ingredient Cost Optimization'
+        '5-Slot "Isi Piringku" Standardized Tray Menu Planner',
+        'Weighted Moving Average (WMA, n=3) Time-Series Early Warning',
+        'Automated "Zona Merah" Blacklist & Threshold Detection',
+        'Google Gemini Generative AI Adaptive Menu Builder with Budget Guardrails',
+        'Digital Plate Waste Telemetry & Centralized Ledger'
       ]
     }
   },
   id: {
-    subHeader: 'Arsitektur pilihan berdampak tinggi mencakup Enterprise AI/RAG, Integrasi ERP, dan Sistem Telemetri IoT.',
+    subHeader: 'Arsitektur pilihan berdampak tinggi mencakup Enterprise AI/RAG, Integrasi ERP, dan Sistem Telemetri & Prediksi AI.',
     modalHighlights: 'Sorotan Utama Arsitektur:',
     readCaseStudy: 'Baca Studi Kasus',
     closePreview: 'Tutup Preview',
     openFullCaseStudy: 'Buka Studi Kasus Lengkap',
     orion: {
-      description: 'Arsitektur Hybrid RAG yang menggabungkan Pencarian Paralel (kata kunci BM25 + Kedekatan Vektor Kosinus) via ChromaDB dengan model pemeringkat ulang Cross-Encoder dan evaluasi Human-in-the-Loop.',
+      title: 'ORION',
+      subtitle: 'Sistem Temu Balik Informasi & Paralel RAG Berbasis Microservices',
+      badge: 'MICROSERVICES RAG & PARALLEL SEARCH',
+      metric: 'Zero Halusinasi • 1.39s Total Latensi',
+      description: 'Arsitektur microservices terdistribusi yang mengeksekusi Paralel Search (leksikal BM25 + pencarian semantik vektor ChromaDB) secara asinkron, digabungkan algoritma Reciprocal Rank Fusion (RRF), inferensi Groq Llama 3.1, RBAC divisi, dan Human-in-the-Loop.',
       highlights: [
-        'Pencarian Paralel (BM25 + Dense Embeddings)',
-        'Pipeline Pemeringkatan Ulang Cross-Encoder',
-        'Verifikasi Aktif Human-in-the-Loop',
-        'Microservice FastAPI + Async Streaming'
+        'Paralel Search Asinkron (Leksikal BM25 + Semantik Cosine ChromaDB)',
+        'Algoritma Pemeringkat Ulang Reciprocal Rank Fusion (RRF)',
+        'Arsitektur 3-Tier Microservices (Vue 3 + CI4 Gateway + FastAPI Engine)',
+        'Isolasi Data RBAC Multidivisi & Sitasi Rujukan Halaman Akurat (Smart Citation)',
+        'Eskalasi Human-in-the-Loop (HITL) & Evaluasi Umpan Balik RLHF'
       ]
     },
     chitose: {
-      description: 'Arsitektur Dual-Database untuk sistem krusial yang menjembatani SAP SQL Server ERP dan data warehouse MySQL modern dengan SSO CodeIgniter 4 untuk digitalisasi pengadaan.',
+      subtitle: 'Supplier Performance Evaluation (SPE) & Integrasi ERP',
+      badge: 'MULTI-TIER DUAL-DB & SSO',
+      metric: 'Zero Lock SAP ERP • 4 Divisi Terpadu',
+      description: 'Arsitektur multi-tier yang menjembatani SAP SQL Server produksi (ekstraksi logistik read-only) dengan MySQL lokal, terintegrasi Single Sign-On (SSO) perusahaan dan kalkulasi multi-kriteria modular.',
       highlights: [
-        'Arsitektur Dual-Database (SAP SQL Server & MySQL)',
-        'Autentikasi Terpusat Single Sign-On (SSO)',
-        'Matriks Penilaian Pemasok Multi-Kriteria Otomatis',
-        'Kontrol Akses Berbasis Peran & Jejak Audit'
+        'Pemisahan Arsitektur Dual-Database (SAP SQL Server & MySQL Data Warehouse)',
+        'Autentikasi Terpusat SSO HRIS & Enkapsulasi DOM Berbasis Peran (QC, PPIC, PCH, HSE)',
+        'Sinkronisasi Master Vendor Hibrida Berbasis Aksi Pengguna',
+        'Algoritma Kalkulasi Multi-Kriteria Otomatis & Dasbor KPI Historis'
       ]
     },
     'mbg-iot': {
-      description: 'Sistem monitoring limbah makanan institusional dengan sensor timbangan IoT (ESP32) yang menganalisis tren data historis via Weighted Moving Average (WMA) untuk prediksi porsi dan menyusun rekomendasi menu bergizi baru dengan Generative AI.',
+      title: 'Sistem Rekomendasi Menu MBG',
+      subtitle: 'Perencanaan Gizi & Prediksi Tren Limbah Pangan',
+      badge: 'TIME-SERIES (WMA) & GEN-AI',
+      metric: '5 Slot Gizi • Early Warning Zona Merah',
+      description: 'Sistem Pendukung Keputusan (DSS) berbasis web yang mendigitalkan perencanaan menu mingguan standar 5-slot "Isi Piringku", memanfaatkan algoritma Weighted Moving Average (WMA n=3) untuk mendeteksi tren limbah "Zona Merah" serta Google Gemini AI untuk peracikan menu adaptif.',
       highlights: [
-        'Telemetri Sensor IoT (ESP32 Load Cells + Broker MQTT)',
-        'Weighted Moving Average (WMA) untuk Prediksi Limbah & Kalibrasi Porsi',
-        'Generative AI Menu Builder (Memfilter Bahan dengan Tren Waste Tinggi)',
-        'Dashboard Real-time & Optimasi Efisiensi Anggaran Bahan Baku'
+        'Tray Menu Planner Terstandarisasi 5-Slot "Isi Piringku"',
+        'Prediksi Tren Deret Waktu Weighted Moving Average (WMA, n=3)',
+        'Klasifikasi Otomatis "Zona Merah" & Deteksi Ambang Batas Limbah',
+        'Peracik Menu Adaptif Google Gemini Gen-AI dengan Pembatas Anggaran',
+        'Telemetri Persentase Limbah Makanan Harian & Buku Besar Terpusat'
       ]
     }
   }
@@ -90,37 +116,37 @@ const projects = computed(() => {
     {
       id: 'orion',
       title: 'ORION',
-      subtitle: 'Enterprise Knowledge Retrieval & Hybrid RAG',
-      badge: 'AI / RAG ARCHITECTURE',
-      metric: 'Latency: <120ms • Recall: 96.4%',
+      subtitle: t.orion.subtitle || 'Enterprise Knowledge Retrieval & Parallel RAG Microservices',
+      badge: t.orion.badge || 'MICROSERVICES RAG & PARALLEL SEARCH',
+      metric: t.orion.metric || 'Zero Hallucination • 1.39s E2E Latency',
       description: t.orion.description,
       highlights: t.orion.highlights,
-      stack: ['Python', 'FastAPI', 'ChromaDB', 'LangChain', 'Vue 3', 'Docker'],
-      repoUrl: 'https://github.com/lutficandaka/orion-hybrid-rag',
+      stack: ['Python 3.11', 'FastAPI', 'ChromaDB', 'Groq (Llama 3.1)', 'CodeIgniter 4', 'Vue 3', 'Docker'],
+      repoUrl: 'https://github.com/bpmthm/portofolio',
       accentColor: '#D9381E'
     },
     {
       id: 'chitose',
       title: 'PT Chitose Internasional Tbk',
-      subtitle: 'Supplier Evaluation & Procurement Matrix',
-      badge: 'DUAL-DB ENTERPRISE SYSTEM',
-      metric: '100% Audit Compliance • 2x Faster Cycle',
+      subtitle: t.chitose.subtitle || 'Supplier Performance Evaluation (SPE) & ERP Integration',
+      badge: t.chitose.badge || 'MULTI-TIER DUAL-DB & SSO',
+      metric: t.chitose.metric || 'Zero SAP Lock • 4 Roles Unified',
       description: t.chitose.description,
       highlights: t.chitose.highlights,
-      stack: ['PHP 8.2', 'CodeIgniter 4', 'SQL Server (SAP)', 'MySQL', 'Bootstrap / Tailwind'],
-      repoUrl: 'https://github.com/lutficandaka/chitose-procurement-system',
+      stack: ['PHP 8.4', 'CodeIgniter 4', 'SQL Server (SAP ERP)', 'MySQL 8.0', 'HRIS SSO (CI3/JWT)', 'JavaScript (DOM)'],
+      repoUrl: 'https://github.com/bpmthm/portofolio',
       accentColor: '#D9381E'
     },
     {
       id: 'mbg-iot',
-      title: 'MBG Tracker',
-      subtitle: 'Food Waste Analytics & Generative AI Menu',
-      badge: 'MACHINE LEARNING & GENERATIVE AI',
-      metric: 'Food Waste Reduced by 38%',
+      title: t['mbg-iot'].title || 'MBG Decision Support System',
+      subtitle: t['mbg-iot'].subtitle || 'Nutrition Planning & Time-Series Food Waste Forecasting',
+      badge: t['mbg-iot'].badge || 'TIME-SERIES (WMA) & GEN-AI',
+      metric: t['mbg-iot'].metric || '5 Nutrition Slots • Early Warning Alert',
       description: t['mbg-iot'].description,
       highlights: t['mbg-iot'].highlights,
-      stack: ['ESP32 / C++', 'MQTT / Mosquitto', 'Python / FastAPI', 'Gemini AI API', 'PostgreSQL', 'Vue 3'],
-      repoUrl: 'https://github.com/lutficandaka/mbg-food-waste-iot',
+      stack: ['PHP 8.2', 'Laravel (MVC)', 'Google Gemini AI', 'MySQL / MariaDB', 'Weighted Moving Average (WMA)', 'Tailwind CSS'],
+      repoUrl: 'https://github.com/bpmthm/portofolio',
       accentColor: '#D9381E'
     }
   ]
